@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="线段树,模板," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta name="description" content="acm">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Absoler&#39;s blogs">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="例题洛谷一道题 线段树的讲解推荐博客 这道题唯一难点在于lazy标记的处理，因为涉及加和乘两种区间修改，需要考虑运算顺序。 板子： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线段树模板">
+<meta property="og:url" content="http://yoursite.com/2020/01/22/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A8%A1%E6%9D%BF/index.html">
 <meta property="og:site_name" content="Absoler&#39;s blogs">
-<meta property="og:description" content="acm">
+<meta property="og:description" content="例题洛谷一道题 线段树的讲解推荐博客 这道题唯一难点在于lazy标记的处理，因为涉及加和乘两种区间修改，需要考虑运算顺序。 板子： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-22T14:25:03.000Z">
+<meta property="article:modified_time" content="2020-01-22T14:47:15.167Z">
 <meta property="article:author" content="Absoler">
+<meta property="article:tag" content="线段树">
+<meta property="article:tag" content="模板">
 <meta name="twitter:card" content="summary">
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/01/22/线段树模板/"/>
 
 
 
 
 
-  <title>Absoler's blogs</title>
+  <title>线段树模板 | Absoler's blogs</title>
   
 
 
@@ -142,8 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,9 +239,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -268,9 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/22/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A8%A1%E6%9D%BF/" itemprop="url">线段树模板</a></h1>
+          <h1 class="post-title" itemprop="name headline">线段树模板</h1>
         
 
         <div class="post-meta">
@@ -353,17 +354,13 @@
       
 
       
-        
-          
-            <p>例题<a href="https://www.luogu.com.cn/problemnew/solution/P3373" target="_blank" rel="noopener">洛谷一道题</a></p>
+        <p>例题<a href="https://www.luogu.com.cn/problemnew/solution/P3373" target="_blank" rel="noopener">洛谷一道题</a></p>
 <p>线段树的讲解推荐<a href="https://www.luogu.com.cn/blog/rain142857/junior-data-structure-segmenttree" target="_blank" rel="noopener">博客</a></p>
 <p>这道题唯一难点在于lazy标记的处理，因为涉及加和乘两种区间修改，需要考虑运算顺序。</p>
 <p>板子：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e5</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson (rt&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson (rt&lt;&lt;1|1)</span></span><br><span class="line"><span class="comment">//lazy_tag定义：记录当前节点的修改量，当前节点此时已完成修改，是这个算法区间修改复杂度优秀的核心</span></span><br><span class="line"><span class="comment">//这里add、mul分别是加和乘的lazy标记</span></span><br><span class="line"><span class="keyword">int</span> p;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> val,add,mul;</span><br><span class="line">&#125;t[maxn&lt;&lt;<span class="number">2</span>];</span><br><span class="line"><span class="comment">//由子节点更新父节点的操作，区间合并</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">    t[rt].val=(t[lson].val+t[rson].val)%p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//lazy标记下移，意味着子节点的值也要修改啦，先更新子节点的值，再补充修改它们的lazy标记</span></span><br><span class="line"><span class="comment">//这里我们规定计算顺序：先算乘法再加上add值，add相当于一个附加的offset，所以在更新乘法的lazy时，add标记同时也要乘上这个值。</span></span><br><span class="line"><span class="comment">//什么时候需要pushdown？上面提到的博客中很好地总结了：当接下来要用到当前区间的子区间时，需要把父节点之前存留的修改传下去</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushdown</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m=(l+r)/<span class="number">2</span>;</span><br><span class="line">    t[lson].val=(t[lson].val*t[rt].mul%p+(m-l+<span class="number">1</span>)*t[rt].add%p)%p;</span><br><span class="line">    t[rson].val=(t[rson].val*t[rt].mul%p+(r-m)*t[rt].add%p)%p;</span><br><span class="line">    t[lson].mul=(t[lson].mul*t[rt].mul)%p;</span><br><span class="line">    t[rson].mul=(t[rson].mul*t[rt].mul)%p;</span><br><span class="line">    t[lson].add=(t[lson].add*t[rt].mul%p+t[rt].add)%p;</span><br><span class="line">    t[rson].add=(t[rson].add*t[rt].mul%p+t[rt].add)%p;</span><br><span class="line">    t[rt].mul=<span class="number">1</span>;</span><br><span class="line">    t[rt].add=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//bottom-up建树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">    t[rt].add=<span class="number">0</span>;</span><br><span class="line">    t[rt].mul=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">        t[rt].val=a[l<span class="number">-1</span>];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m=(l+r)/<span class="number">2</span>;</span><br><span class="line">        build(l,m,lson);</span><br><span class="line">        build(m+<span class="number">1</span>,r,rson);</span><br><span class="line">        pushup(rt);</span><br><span class="line">    &#125;</span><br><span class="line">    t[rt].val%=p;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//top-down更新</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update_add</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l&gt;=L&amp;&amp;r&lt;=R)&#123;</span><br><span class="line">        t[rt].add=(t[rt].add+v)%p;</span><br><span class="line">        t[rt].val=(t[rt].val+(r-l+<span class="number">1</span>)*v%p)%p;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(rt,l,r);</span><br><span class="line">    <span class="keyword">int</span> m=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L&lt;=m)&#123;</span><br><span class="line">        update_add(L,R,l,m,lson,v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//注意这个地方不能写成if-else，因为这两种情况可能同时出现，不是非此即彼的关系</span></span><br><span class="line">    <span class="keyword">if</span>(R&gt;m)&#123;</span><br><span class="line">        update_add(L,R,m+<span class="number">1</span>,r,rson,v);</span><br><span class="line">    &#125;</span><br><span class="line">    pushup(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update_mul</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l&gt;=L&amp;&amp;r&lt;=R)&#123;</span><br><span class="line">        t[rt].mul=(t[rt].mul*v)%p;</span><br><span class="line">        t[rt].add=(t[rt].add*v)%p;</span><br><span class="line">        t[rt].val=(t[rt].val*v)%p;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(rt,l,r);</span><br><span class="line">    <span class="keyword">int</span> m=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L&lt;=m)&#123;</span><br><span class="line">        update_mul(L,R,l,m,lson,v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(R&gt;m)&#123;</span><br><span class="line">        update_mul(L,R,m+<span class="number">1</span>,r,rson,v);</span><br><span class="line">    &#125;</span><br><span class="line">    pushup(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l&gt;=L&amp;&amp;r&lt;=R)&#123;</span><br><span class="line">        <span class="keyword">return</span> t[rt].val;</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(rt,l,r);</span><br><span class="line">    <span class="keyword">int</span> m=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> res=<span class="number">0L</span>L;</span><br><span class="line">    <span class="keyword">if</span>(L&lt;=m)&#123;</span><br><span class="line">        res+=query(L,R,l,m,lson);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(R&gt;m)&#123;</span><br><span class="line">        res+=query(L,R,m+<span class="number">1</span>,r,rson);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res%p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;p;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,a+i);</span><br><span class="line">    build(<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> flag;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;flag);</span><br><span class="line">        <span class="keyword">if</span>(flag==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> L,R,v;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;L,&amp;R,&amp;v);</span><br><span class="line">            update_mul(L,R,<span class="number">1</span>,n,<span class="number">1</span>,v);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(flag==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> L,R,v;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;L,&amp;R,&amp;v);</span><br><span class="line">            update_add(L,R,<span class="number">1</span>,n,<span class="number">1</span>,v);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> L,R;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;L,&amp;R);</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;query(L,R,<span class="number">1</span>,n,<span class="number">1</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-          
-        
       
     </div>
     
@@ -378,304 +375,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" itemprop="url">博客踩坑记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-20T18:57:11+08:00">
-                2020-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">博客搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"># 线段树</a>
           
-
+            <a href="/tags/%E6%A8%A1%E6%9D%BF/" rel="tag"># 模板</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="npm-安装"><a href="#npm-安装" class="headerlink" title="npm 安装"></a>npm 安装</h3><p>nodejs安装在了D盘，同时npm安装目录也设在了D盘，按照博客上教的方法设置即可</p>
-<p>由于官网速度慢，想按照网友的方法设置镜像下载源，需要nrm这个工具，但由于某些原因npm安装一直卡在checking安装状态这一步（翻墙中）。这个时候从网上查到了一个方法：删掉C盘Roaming目录下的npm和npm-cache文件夹，但是可能是我更改了默认安装目录的原因，并未找到这两个文件夹。</p>
-<p>最后的解决方法是，使用–registry=<a href="https://registry.npm.taobao.org先临时使用镜像站下载该工具，然后按照其他教程设置默认下载源为taobao即可" target="_blank" rel="noopener">https://registry.npm.taobao.org先临时使用镜像站下载该工具，然后按照其他教程设置默认下载源为taobao即可</a></p>
-<h3 id="hexo提交免输入密码"><a href="#hexo提交免输入密码" class="headerlink" title="hexo提交免输入密码"></a>hexo提交免输入密码</h3><p>设置ssh后，项目目录下_config.yml文件中的repository的地址写成<a href="mailto:git@github.com">git@github.com</a>:格式</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>ssh -T <a href="mailto:git@gitbub.com">git@gitbub.com</a>测试ssh连接</p>
-<h3 id="删除文章"><a href="#删除文章" class="headerlink" title="删除文章"></a>删除文章</h3><p>hexo clean</p>
-<p>删除本地md</p>
-<p>hexo d -g</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/17/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/17/%E5%88%86%E7%B1%BB%E6%B5%8B%E8%AF%95/" itemprop="url">分类测试</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-17T22:51:38+08:00">
-                2020-01-17
-              </time>
+              <a href="/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" rel="next" title="博客踩坑记录">
+                <i class="fa fa-chevron-left"></i> 博客踩坑记录
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/acm/" itemprop="url" rel="index">
-                    <span itemprop="name">acm</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -685,164 +416,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/16/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-16T17:12:10+08:00">
-                2020-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -850,6 +428,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1064,6 +646,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
