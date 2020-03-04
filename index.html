@@ -251,6 +251,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84STL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/11/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84STL/" itemprop="url">计算几何模板</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-11T17:32:10+08:00">
+                2020-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/STL/" itemprop="url" rel="index">
+                    <span itemprop="name">STL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>C++标准模板库（STL）封装了大量十分有用的数据结构和算法，熟练使用STL将会使我们的程序编写如虎添翼。接下来会介绍几种在程序竞赛中常用到的STL类。如果想了解更多，推荐直接访问<a href="https://zh.cppreference.com/w/cpp" target="_blank" rel="noopener">官方文档</a>搜索查阅</p>
+</blockquote>
+<p>[TOC]</p>
+<h3 id="bitset"><a href="#bitset" class="headerlink" title="bitset"></a>bitset</h3><p>可以理解为bit这个数据类型的数组（即取值只为0/1），大多数情况下，每个元素所占内存确实只有1bit，是bool类型的1/8。方便各种位操作的进行。</p>
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>都需要在定义时指明长度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">默认：</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;16&gt; foo;	<span class="comment">//填充0</span></span><br><span class="line"></span><br><span class="line">整数：</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;16&gt; foo(<span class="number">0x1111</span>);	<span class="comment">//0001000100010001</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;4&gt; foo(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"1010"</span>));	<span class="comment">//1010</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="位操作"><a href="#位操作" class="headerlink" title="位操作"></a>位操作</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[]:</span><br><span class="line">类似数组直接访问</span><br><span class="line"></span><br><span class="line">.count():</span><br><span class="line">返回一个<span class="built_in">bitset</span>中<span class="number">1</span>的个数</span><br><span class="line">    </span><br><span class="line">.<span class="built_in">size</span>():</span><br><span class="line">返回一个<span class="built_in">bitset</span>的长度</span><br><span class="line">    </span><br><span class="line">.any():</span><br><span class="line">返回一个<span class="keyword">bool</span>值，表示这个<span class="built_in">bitset</span>中是否至少有一个<span class="number">1</span>，与.none()相反</span><br><span class="line"></span><br><span class="line">.all():</span><br><span class="line">返回一个<span class="keyword">bool</span>值，表示这个<span class="built_in">bitset</span>中是否全为<span class="number">1</span></span><br><span class="line"></span><br><span class="line">.<span class="built_in">set</span>():</span><br><span class="line">将<span class="built_in">bitset</span>全置<span class="number">1</span></span><br><span class="line">.<span class="built_in">set</span>(<span class="keyword">size_t</span> pos, <span class="keyword">bool</span> val = <span class="literal">true</span>)</span><br><span class="line">将pos位上元素置val值</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="整体操作"><a href="#整体操作" class="headerlink" title="整体操作"></a>整体操作</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_string()	<span class="comment">//convert to std::string</span></span><br><span class="line">to_ulong()	<span class="comment">//convert to unsigned long</span></span><br><span class="line">to_ullong()	<span class="comment">//convert to unsigned long long</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h3><p>优先队列（默认）的本质是一个大根堆，它的top元素始终是最大的。</p>
+<p>优先队列的底层container默认是vector。</p>
+<h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::priority_queue&lt;int, std::vector&lt;int&gt;, std::greater&lt;int&gt; &gt; pq(first,last);</span><br><span class="line">&#x2F;&#x2F;指定比较函数greater，变为小根堆</span><br><span class="line">&#x2F;&#x2F;first和last是储存初始化数据的数组指针</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.empty(): <span class="keyword">return</span> <span class="literal">true</span> <span class="keyword">if</span> it<span class="number">'</span>s empty</span><br><span class="line">.<span class="built_in">size</span>(): <span class="keyword">return</span> <span class="built_in">size</span>    </span><br><span class="line">.top(): 获取顶部元素</span><br><span class="line">.push(): 插入元素</span><br><span class="line">.pop(): <span class="built_in">remove</span> top element</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="pair"><a href="#pair" class="headerlink" title="pair"></a>pair</h3><p>保存了一个有序对，两个元素分别为first和second，可以有不同类型</p>
+<h4 id="重载函数"><a href="#重载函数" class="headerlink" title="重载函数"></a>重载函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">头文件&lt;utility&gt;</span><br><span class="line">    </span><br><span class="line">关系比较：</span><br><span class="line">先比较first，再比较second</span><br><span class="line"></span><br><span class="line">swap(p1,p2):</span><br><span class="line">交换两个同类型的pair object</span><br><span class="line">    </span><br><span class="line"><span class="built_in">get</span>&lt;I&gt;(pair p)</span><br><span class="line">I为<span class="number">0</span>时返回first元素，为<span class="number">1</span>时返回second</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">普通构造方式略。</span><br><span class="line">    </span><br><span class="line">很多其他stl数据结构中有用到make_pair函数</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>,<span class="title">class</span> <span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class">  <span class="title">pair</span>&lt;T1,T2&gt; <span class="title">make_pair</span> (<span class="title">T1</span> <span class="title">x</span>, <span class="title">T2</span> <span class="title">y</span>)</span></span><br><span class="line"><span class="class">  &#123;</span></span><br><span class="line">    <span class="keyword">return</span> ( pair&lt;T1,T2&gt;(x,y) );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="lower-bound"><a href="#lower-bound" class="headerlink" title="lower_bound"></a>lower_bound</h3><p>参数(first, last, x)</p>
+<p>找到第一个&gt;=x的元素的位置</p>
+<p>upper_bound是找到第一个&gt;x的元素位置</p>
+<h3 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h3><p>可遍历vector和map</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; mp;</span><br><span class="line">    mp.insert(pair&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">2</span>,<span class="string">"hello"</span>));</span><br><span class="line">    mp.insert(pair&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">1</span>,<span class="string">"miaomiaomiao"</span>));</span><br><span class="line">    mp.insert(pair&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">3</span>,<span class="string">"world"</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;p : mp)</span><br><span class="line">	    <span class="built_in">cout</span> &lt;&lt; p.first &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出1、2、3</p>
+<p>可见是按照key值遍历组成map的这些pair</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -697,174 +887,6 @@
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//https://codeforces.com/contest/724/problem/G</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e5</span>+<span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">4e5</span>+<span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxp=<span class="number">62</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,next;	<span class="comment">//to是该边指向的点，next是该边的上一条边的下标</span></span><br><span class="line">    ll val;</span><br><span class="line">    edge()&#123; to=<span class="number">0</span>,next=<span class="number">-1</span>,val=<span class="number">0</span>;&#125;</span><br><span class="line">&#125;es[maxm];</span><br><span class="line"><span class="keyword">int</span> head[maxn]; <span class="comment">//head[i]是i点发出的最后一条边的下标</span></span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">ll base[maxp];</span><br><span class="line"></span><br><span class="line">ll p[maxp];</span><br><span class="line"><span class="keyword">int</span> r;  <span class="comment">//线性基数量</span></span><br><span class="line">ll <span class="built_in">circle</span>[maxm],dep[maxn];</span><br><span class="line"><span class="keyword">int</span> cir;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,ll t)</span></span>&#123;</span><br><span class="line">    es[cnt].to=v;</span><br><span class="line">    es[cnt].val=t;</span><br><span class="line">    es[cnt].next=head[u];	<span class="comment">//next指向上个head</span></span><br><span class="line">    head[u]=cnt++;	<span class="comment">//当前加入的边是head</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cover[maxn];    <span class="comment">//记录本次dfs覆盖了哪些点</span></span><br><span class="line"><span class="keyword">int</span> cntc;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> fa,ll cur)</span></span>&#123;</span><br><span class="line">    cover[cntc++]=u;</span><br><span class="line">    <span class="comment">//cur是当前点到根的异或和</span></span><br><span class="line">    dep[u]=cur;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i!=<span class="number">-1</span>;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(es[i].to==fa)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(dep[es[i].to]==<span class="number">-1</span>)&#123;</span><br><span class="line">            dfs(v,u,cur^es[i].val);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//重复到达某个点，说明有环，添加它的值</span></span><br><span class="line">            <span class="built_in">circle</span>[cir++]=dep[u]^dep[v]^es[i].val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">linearBase</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</span><br><span class="line">    r=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cir;i++)&#123;</span><br><span class="line">        ll x=<span class="built_in">circle</span>[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=maxp<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(x&amp;(<span class="number">1l</span>l&lt;&lt;j))&#123;</span><br><span class="line">                <span class="keyword">if</span>(!p[j])&#123;</span><br><span class="line">                    p[j]=x;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                x^=p[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!x) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;maxp;i++)</span><br><span class="line">        <span class="keyword">if</span>(p[i]) r++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll ans;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">    linearBase();</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    ll tot[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;maxp;i++)&#123;</span><br><span class="line">        tot[<span class="number">0</span>]=<span class="number">0</span>,tot[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;cntc;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dep[cover[j]]&amp;(<span class="number">1l</span>l&lt;&lt;i)) tot[<span class="number">1</span>]++;</span><br><span class="line">            <span class="keyword">else</span> tot[<span class="number">0</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">        ll tmp=(tot[<span class="number">0</span>]*(tot[<span class="number">0</span>]<span class="number">-1</span>)/<span class="number">2</span>%mod+tot[<span class="number">1</span>]*(tot[<span class="number">1</span>]<span class="number">-1</span>)/<span class="number">2</span>)%mod;   <span class="comment">//路径异或值该位同为1或0的对子数量</span></span><br><span class="line">        <span class="keyword">bool</span> f=<span class="literal">false</span>;   <span class="comment">//true：存在一个线性基该位为1</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;maxp;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p[j]&amp;(<span class="number">1l</span>l&lt;&lt;i))&#123;</span><br><span class="line">                f=<span class="literal">true</span>; <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f)&#123;</span><br><span class="line">            tmp=(tmp*base[r<span class="number">-1</span>]%mod)*base[i]%mod;    <span class="comment">//线性基能带来2^(r-1)个2^i值</span></span><br><span class="line">            ans=(ans+tmp)%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        tmp=tot[<span class="number">0</span>]*tot[<span class="number">1</span>]%mod;</span><br><span class="line">        <span class="keyword">if</span>(f)&#123;</span><br><span class="line">            tmp=(tmp*base[r<span class="number">-1</span>]%mod);	<span class="comment">//在该位有线性基，所以只有一半的能做贡献</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            tmp=tmp*base[r]%mod;    <span class="comment">//此时由于线性基该位为0，所以2^r个线性基全做贡献</span></span><br><span class="line">        &#125;</span><br><span class="line">        tmp=tmp*base[i]%mod;</span><br><span class="line">        ans=(ans+tmp)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">int</span> u,v;</span><br><span class="line">    ll t;</span><br><span class="line">    <span class="built_in">memset</span>(head,<span class="number">-1</span>,<span class="keyword">sizeof</span>(head));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%lld"</span>,&amp;u,&amp;v,&amp;t);</span><br><span class="line">        add(u,v,t);</span><br><span class="line">        add(v,u,t);</span><br><span class="line">    &#125;</span><br><span class="line">    base[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;maxp;i++) base[i]=(base[i<span class="number">-1</span>]*<span class="number">2</span>)%mod;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">-1</span>,<span class="keyword">sizeof</span>(dep));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[i]==<span class="number">-1</span>)&#123;</span><br><span class="line">            cntc=<span class="number">0</span>; <span class="comment">//清除上个联通块中的点</span></span><br><span class="line">            cir=<span class="number">0</span>;  <span class="comment">//清除上个联通块中的环</span></span><br><span class="line">            dfs(i,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">            solve();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans%mod&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84STL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/31/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84STL/" itemprop="url">算法竞赛中常用的STL</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-31T21:31:12+08:00">
-                2020-01-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>C++标准模板库（STL）封装了大量十分有用的数据结构和算法，熟练使用STL将会使我们的程序编写如虎添翼。接下来会介绍几种在程序竞赛中常用到的STL类。如果想了解更多，推荐直接访问<a href="https://zh.cppreference.com/w/cpp" target="_blank" rel="noopener">官方文档</a>搜索查阅</p>
-</blockquote>
-<p>[TOC]</p>
-<h3 id="bitset"><a href="#bitset" class="headerlink" title="bitset"></a>bitset</h3><p>可以理解为bit这个数据类型的数组（即取值只为0/1），大多数情况下，每个元素所占内存确实只有1bit，是bool类型的1/8。方便各种位操作的进行。</p>
-<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>都需要在定义时指明长度</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">默认：</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;16&gt; foo;	<span class="comment">//填充0</span></span><br><span class="line"></span><br><span class="line">整数：</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;16&gt; foo(<span class="number">0x1111</span>);	<span class="comment">//0001000100010001</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">bitset</span>&lt;4&gt; foo(<span class="built_in">std</span>::<span class="built_in">string</span>(<span class="string">"1010"</span>));	<span class="comment">//1010</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="位操作"><a href="#位操作" class="headerlink" title="位操作"></a>位操作</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[]:</span><br><span class="line">类似数组直接访问</span><br><span class="line"></span><br><span class="line">.count():</span><br><span class="line">返回一个<span class="built_in">bitset</span>中<span class="number">1</span>的个数</span><br><span class="line">    </span><br><span class="line">.<span class="built_in">size</span>():</span><br><span class="line">返回一个<span class="built_in">bitset</span>的长度</span><br><span class="line">    </span><br><span class="line">.any():</span><br><span class="line">返回一个<span class="keyword">bool</span>值，表示这个<span class="built_in">bitset</span>中是否至少有一个<span class="number">1</span>，与.none()相反</span><br><span class="line"></span><br><span class="line">.all():</span><br><span class="line">返回一个<span class="keyword">bool</span>值，表示这个<span class="built_in">bitset</span>中是否全为<span class="number">1</span></span><br><span class="line"></span><br><span class="line">.<span class="built_in">set</span>():</span><br><span class="line">将<span class="built_in">bitset</span>全置<span class="number">1</span></span><br><span class="line">.<span class="built_in">set</span>(<span class="keyword">size_t</span> pos, <span class="keyword">bool</span> val = <span class="literal">true</span>)</span><br><span class="line">将pos位上元素置val值</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="整体操作"><a href="#整体操作" class="headerlink" title="整体操作"></a>整体操作</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">to_string()	<span class="comment">//convert to std::string</span></span><br><span class="line">to_ulong()	<span class="comment">//convert to unsigned long</span></span><br><span class="line">to_ullong()	<span class="comment">//convert to unsigned long long</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h3><p>优先队列（默认）的本质是一个大根堆，它的top元素始终是最大的。</p>
-<p>优先队列的底层container默认是vector。</p>
-<h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::priority_queue&lt;int, std::vector&lt;int&gt;, std::greater&lt;int&gt; &gt; pq(first,last);</span><br><span class="line">&#x2F;&#x2F;指定比较函数greater，变为小根堆</span><br><span class="line">&#x2F;&#x2F;first和last是储存初始化数据的数组指针</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.empty(): <span class="keyword">return</span> <span class="literal">true</span> <span class="keyword">if</span> it<span class="number">'</span>s empty</span><br><span class="line">.<span class="built_in">size</span>(): <span class="keyword">return</span> <span class="built_in">size</span>    </span><br><span class="line">.top(): 获取顶部元素</span><br><span class="line">.push(): 插入元素</span><br><span class="line">.pop(): <span class="built_in">remove</span> top element</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="pair"><a href="#pair" class="headerlink" title="pair"></a>pair</h3><p>保存了一个有序对，两个元素分别为first和second，可以有不同类型</p>
-<h4 id="重载函数"><a href="#重载函数" class="headerlink" title="重载函数"></a>重载函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">头文件&lt;utility&gt;</span><br><span class="line">    </span><br><span class="line">关系比较：</span><br><span class="line">先比较first，再比较second</span><br><span class="line"></span><br><span class="line">swap(p1,p2):</span><br><span class="line">交换两个同类型的pair object</span><br><span class="line">    </span><br><span class="line"><span class="built_in">get</span>&lt;I&gt;(pair p)</span><br><span class="line">I为<span class="number">0</span>时返回first元素，为<span class="number">1</span>时返回second</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">普通构造方式略。</span><br><span class="line">    </span><br><span class="line">很多其他stl数据结构中有用到make_pair函数</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>,<span class="title">class</span> <span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class">  <span class="title">pair</span>&lt;T1,T2&gt; <span class="title">make_pair</span> (<span class="title">T1</span> <span class="title">x</span>, <span class="title">T2</span> <span class="title">y</span>)</span></span><br><span class="line"><span class="class">  &#123;</span></span><br><span class="line">    <span class="keyword">return</span> ( pair&lt;T1,T2&gt;(x,y) );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="lower-bound"><a href="#lower-bound" class="headerlink" title="lower_bound"></a>lower_bound</h3><p>参数(first, last, x)</p>
-<p>找到第一个&gt;=x的元素的位置</p>
-<p>upper_bound是找到第一个&gt;x的元素位置</p>
-<h3 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h3><p>可遍历vector和map</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt; mp;</span><br><span class="line">    mp.insert(pair&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">2</span>,<span class="string">"hello"</span>));</span><br><span class="line">    mp.insert(pair&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">1</span>,<span class="string">"miaomiaomiao"</span>));</span><br><span class="line">    mp.insert(pair&lt;<span class="keyword">int</span>,<span class="built_in">string</span>&gt;(<span class="number">3</span>,<span class="string">"world"</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;p : mp)</span><br><span class="line">	    <span class="built_in">cout</span> &lt;&lt; p.first &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出1、2、3</p>
-<p>可见是按照key值遍历组成map的这些pair</p>
 
           
         
@@ -1925,7 +1947,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1936,7 +1958,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
