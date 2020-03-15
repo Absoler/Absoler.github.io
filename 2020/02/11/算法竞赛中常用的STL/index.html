@@ -87,7 +87,7 @@
 <meta property="og:description" content="C++标准模板库（STL）封装了大量十分有用的数据结构和算法，熟练使用STL将会使我们的程序编写如虎添翼。接下来会介绍几种在程序竞赛中常用到的STL类。如果想了解更多，推荐直接访问官方文档搜索查阅  [TOC] bitset可以理解为bit这个数据类型的数组（即取值只为0&#x2F;1），大多数情况下，每个元素所占内存确实只有1bit，是bool类型的1&#x2F;8。方便各种位操作的进行。 构造方法都需要在定义时">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-11T09:32:10.000Z">
-<meta property="article:modified_time" content="2020-03-09T13:44:02.465Z">
+<meta property="article:modified_time" content="2020-03-14T13:30:41.300Z">
 <meta property="article:author" content="Absoler">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -394,6 +394,10 @@
 <h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>::substr()</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">substr</span> <span class="params">(<span class="keyword">size_t</span> pos = <span class="number">0</span>, <span class="keyword">size_t</span> len = npos)</span> <span class="keyword">const</span></span>;返回子串</span><br></pre></td></tr></table></figure>
 
 
+
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">重载[](key_type k)</span><br><span class="line">等价于(*((<span class="keyword">this</span>-&gt;insert(make_pair(k,mapped_type()))).first)).second</span><br><span class="line">如果mp中存在匹配到k的pair，则返回这个pair.second的引用</span><br><span class="line">否则插入一个新的pair，second值为<span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    对于计数类型的输入，我们可以每次mp[x]+=<span class="number">1</span>;它会从<span class="number">0</span>开始向上加</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -512,7 +516,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -523,7 +527,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -534,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -567,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bitset"><span class="nav-number">1.</span> <span class="nav-text">bitset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造方法"><span class="nav-number">1.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位操作"><span class="nav-number">1.2.</span> <span class="nav-text">位操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整体操作"><span class="nav-number">1.3.</span> <span class="nav-text">整体操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#priority-queue"><span class="nav-number">2.</span> <span class="nav-text">priority_queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造方法-1"><span class="nav-number">2.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#成员函数"><span class="nav-number">2.2.</span> <span class="nav-text">成员函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pair"><span class="nav-number">3.</span> <span class="nav-text">pair</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重载函数"><span class="nav-number">3.1.</span> <span class="nav-text">重载函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造"><span class="nav-number">3.2.</span> <span class="nav-text">构造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lower-bound"><span class="nav-number">4.</span> <span class="nav-text">lower_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#auto"><span class="nav-number">5.</span> <span class="nav-text">auto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-number">6.</span> <span class="nav-text">string</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bitset"><span class="nav-number">1.</span> <span class="nav-text">bitset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造方法"><span class="nav-number">1.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位操作"><span class="nav-number">1.2.</span> <span class="nav-text">位操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整体操作"><span class="nav-number">1.3.</span> <span class="nav-text">整体操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#priority-queue"><span class="nav-number">2.</span> <span class="nav-text">priority_queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造方法-1"><span class="nav-number">2.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#成员函数"><span class="nav-number">2.2.</span> <span class="nav-text">成员函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pair"><span class="nav-number">3.</span> <span class="nav-text">pair</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重载函数"><span class="nav-number">3.1.</span> <span class="nav-text">重载函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造"><span class="nav-number">3.2.</span> <span class="nav-text">构造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lower-bound"><span class="nav-number">4.</span> <span class="nav-text">lower_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#auto"><span class="nav-number">5.</span> <span class="nav-text">auto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-number">6.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">7.</span> <span class="nav-text">map</span></a></li></ol></div>
             
 
           </div>
