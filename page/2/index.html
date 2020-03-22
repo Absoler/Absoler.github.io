@@ -251,6 +251,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/codeforces-724G-Xor-matic-Number-of-the-Graph/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/03/codeforces-724G-Xor-matic-Number-of-the-Graph/" itemprop="url">codeforces 724G. Xor-matic Number of the Graph</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-03T21:13:42+08:00">
+                2020-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%9F%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">线性基</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://codeforces.com/contest/724/problem/G" target="_blank" rel="noopener">题目链接</a></p>
+<p>给一个无向图，含边权，并定义这样一种三元组(u, v, t)满足：从u到v有一条路径且路径上的边权异或和为t。求所有三元组的t的和</p>
+<ol>
+<li><p>我们对它逐步拆解分析，先考虑最简单的情况——如果这个图是一棵树。首先我们发现由于异或的特殊性，经过相同的边两次等价于没有经过，所以对于所有的点对(u, v)它有唯一的异或和dis(u, v) 且等于dis(u, root) ^ dis(v, root)，因为路径上重合的部分被异或掉了。这样的关系给了我们一个启示：可以一次计算出所有点到根的异或和（用dfs）。然后再用它来求两点间的异或和。</p>
+</li>
+<li><p>接下来我们向图中加入环，我们知道如果在一条边上“往返”，是对结果无影响的，所以对于该图中所有的环（重边也算），都可以随意地向(u, v)的基本路径中添加。相当于存在这样一个集合B，集合中是每个环完整一圈的异或和，我们可以从这个集合中任意取数并异或上1中的结果。</p>
+<p>因此我们可以去计算集合B的线性基。</p>
+</li>
+<li><p>进而我们需要考虑的是如何计算，由于点和边的数量级是1e5，如果遍历点对会超时，这个时候就需要找规律。最终是求和，我们按照二进制位去累加各种情况的贡献，对于第i位，去计数有多少点的深度值dep[i] = dis(i, root)在这一位上是1或0，分别是tot0和tot1，如果不考虑环，贡献值为tot0<em>tot1\</em>2^i。即最终有tot0*tot1对点的距离值的第i位是1，那就把它们加在一起。考虑环的话则，如果该位原本没有1，可以通过B的线性基来补充。具体公式在代码中。这样计算的复杂度是O(62*m)。</p>
+</li>
+<li><p>对于多个联通块，每发现一个联通块就单独计算它的贡献并累加。需即使清除记录的上个联通块的环。</p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//https://codeforces.com/contest/724/problem/G</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e5</span>+<span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">4e5</span>+<span class="number">4</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxp=<span class="number">62</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,next;	<span class="comment">//to是该边指向的点，next是该边的上一条边的下标</span></span><br><span class="line">    ll val;</span><br><span class="line">    edge()&#123; to=<span class="number">0</span>,next=<span class="number">-1</span>,val=<span class="number">0</span>;&#125;</span><br><span class="line">&#125;es[maxm];</span><br><span class="line"><span class="keyword">int</span> head[maxn]; <span class="comment">//head[i]是i点发出的最后一条边的下标</span></span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">ll base[maxp];</span><br><span class="line"></span><br><span class="line">ll p[maxp];</span><br><span class="line"><span class="keyword">int</span> r;  <span class="comment">//线性基数量</span></span><br><span class="line">ll <span class="built_in">circle</span>[maxm],dep[maxn];</span><br><span class="line"><span class="keyword">int</span> cir;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,ll t)</span></span>&#123;</span><br><span class="line">    es[cnt].to=v;</span><br><span class="line">    es[cnt].val=t;</span><br><span class="line">    es[cnt].next=head[u];	<span class="comment">//next指向上个head</span></span><br><span class="line">    head[u]=cnt++;	<span class="comment">//当前加入的边是head</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cover[maxn];    <span class="comment">//记录本次dfs覆盖了哪些点</span></span><br><span class="line"><span class="keyword">int</span> cntc;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> fa,ll cur)</span></span>&#123;</span><br><span class="line">    cover[cntc++]=u;</span><br><span class="line">    <span class="comment">//cur是当前点到根的异或和</span></span><br><span class="line">    dep[u]=cur;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[u];i!=<span class="number">-1</span>;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(es[i].to==fa)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(dep[es[i].to]==<span class="number">-1</span>)&#123;</span><br><span class="line">            dfs(v,u,cur^es[i].val);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//重复到达某个点，说明有环，添加它的值</span></span><br><span class="line">            <span class="built_in">circle</span>[cir++]=dep[u]^dep[v]^es[i].val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">linearBase</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</span><br><span class="line">    r=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cir;i++)&#123;</span><br><span class="line">        ll x=<span class="built_in">circle</span>[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=maxp<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(x&amp;(<span class="number">1l</span>l&lt;&lt;j))&#123;</span><br><span class="line">                <span class="keyword">if</span>(!p[j])&#123;</span><br><span class="line">                    p[j]=x;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                x^=p[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!x) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;maxp;i++)</span><br><span class="line">        <span class="keyword">if</span>(p[i]) r++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll ans;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">    linearBase();</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    ll tot[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;maxp;i++)&#123;</span><br><span class="line">        tot[<span class="number">0</span>]=<span class="number">0</span>,tot[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;cntc;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dep[cover[j]]&amp;(<span class="number">1l</span>l&lt;&lt;i)) tot[<span class="number">1</span>]++;</span><br><span class="line">            <span class="keyword">else</span> tot[<span class="number">0</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">        ll tmp=(tot[<span class="number">0</span>]*(tot[<span class="number">0</span>]<span class="number">-1</span>)/<span class="number">2</span>%mod+tot[<span class="number">1</span>]*(tot[<span class="number">1</span>]<span class="number">-1</span>)/<span class="number">2</span>)%mod;   <span class="comment">//路径异或值该位同为1或0的对子数量</span></span><br><span class="line">        <span class="keyword">bool</span> f=<span class="literal">false</span>;   <span class="comment">//true：存在一个线性基该位为1</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;maxp;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p[j]&amp;(<span class="number">1l</span>l&lt;&lt;i))&#123;</span><br><span class="line">                f=<span class="literal">true</span>; <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f)&#123;</span><br><span class="line">            tmp=(tmp*base[r<span class="number">-1</span>]%mod)*base[i]%mod;    <span class="comment">//线性基能带来2^(r-1)个2^i值</span></span><br><span class="line">            ans=(ans+tmp)%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        tmp=tot[<span class="number">0</span>]*tot[<span class="number">1</span>]%mod;</span><br><span class="line">        <span class="keyword">if</span>(f)&#123;</span><br><span class="line">            tmp=(tmp*base[r<span class="number">-1</span>]%mod);	<span class="comment">//在该位有线性基，所以只有一半的能做贡献</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            tmp=tmp*base[r]%mod;    <span class="comment">//此时由于线性基该位为0，所以2^r个线性基全做贡献</span></span><br><span class="line">        &#125;</span><br><span class="line">        tmp=tmp*base[i]%mod;</span><br><span class="line">        ans=(ans+tmp)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">int</span> u,v;</span><br><span class="line">    ll t;</span><br><span class="line">    <span class="built_in">memset</span>(head,<span class="number">-1</span>,<span class="keyword">sizeof</span>(head));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%lld"</span>,&amp;u,&amp;v,&amp;t);</span><br><span class="line">        add(u,v,t);</span><br><span class="line">        add(v,u,t);</span><br><span class="line">    &#125;</span><br><span class="line">    base[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;maxp;i++) base[i]=(base[i<span class="number">-1</span>]*<span class="number">2</span>)%mod;</span><br><span class="line">    <span class="built_in">memset</span>(dep,<span class="number">-1</span>,<span class="keyword">sizeof</span>(dep));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[i]==<span class="number">-1</span>)&#123;</span><br><span class="line">            cntc=<span class="number">0</span>; <span class="comment">//清除上个联通块中的点</span></span><br><span class="line">            cir=<span class="number">0</span>;  <span class="comment">//清除上个联通块中的环</span></span><br><span class="line">            dfs(i,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">            solve();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans%mod&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/29/%E7%BA%BF%E6%80%A7%E5%9F%BA%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1245,7 +1412,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1256,7 +1423,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1267,7 +1434,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
