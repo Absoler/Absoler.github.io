@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="哈希," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="和自然溢出法不同的是，这种方法需要取模，并且是两套base mod。每次做哈希操作时，需要两套哈希值都一致，这就大大降低了冲突概率。但是据说常数比较大，并且写起来麻烦一些。 CF1320D 对于一个01串（2e5），给出两种操作：110&lt;-&gt;011，可以执行任意多次，q（2e5）个提问，问这个串中某两个子串能否通过这两种操作互相转化。 分析可知，这种操作实际上就是把0左移或右移2位，也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="双哈希">
+<meta property="og:url" content="http://yoursite.com/2020/04/10/%E5%8F%8C%E5%93%88%E5%B8%8C/index.html">
+<meta property="og:site_name" content="Absoler&#39;s blogs">
+<meta property="og:description" content="和自然溢出法不同的是，这种方法需要取模，并且是两套base mod。每次做哈希操作时，需要两套哈希值都一致，这就大大降低了冲突概率。但是据说常数比较大，并且写起来麻烦一些。 CF1320D 对于一个01串（2e5），给出两种操作：110&lt;-&gt;011，可以执行任意多次，q（2e5）个提问，问这个串中某两个子串能否通过这两种操作互相转化。 分析可知，这种操作实际上就是把0左移或右移2位，也">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-10T13:40:47.000Z">
+<meta property="article:modified_time" content="2020-04-10T14:04:06.866Z">
+<meta property="article:author" content="Absoler">
+<meta property="article:tag" content="哈希">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/10/双哈希/"/>
+
+
+
+
+
+  <title>双哈希 | Absoler's blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Absoler's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/10/%E5%8F%8C%E5%93%88%E5%B8%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">双哈希</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T21:40:47+08:00">
+                2020-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">字符串</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>和自然溢出法不同的是，这种方法需要取模，并且是两套base mod。每次做哈希操作时，需要两套哈希值都一致，这就大大降低了冲突概率。但是据说常数比较大，并且写起来麻烦一些。</p>
+<p>CF1320D</p>
+<p>对于一个01串（2e5），给出两种操作：110&lt;-&gt;011，可以执行任意多次，q（2e5）个提问，问这个串中某两个子串能否通过这两种操作互相转化。</p>
+<p>分析可知，这种操作实际上就是把0左移或右移2位，也就是偶数次，那么如果这两个串中0出现的奇偶序列相同（比如第一个0都是奇数位上，第二个0都是偶数位上）那么就一定能互相转化成功，如果奇偶不同例如某两个0相邻，那是无法彼此转化的。所以问题就变成了，这两个子串中0出现的奇偶序列是否相同，这里是按照奇偶位置分别取1或2，不明白为啥0或1就会wa，，关于hash还有好多不懂的地方。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> base1=<span class="number">131</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> base2=<span class="number">13331</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod1=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod2=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e5</span>+<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> pos[maxn],p;</span><br><span class="line"><span class="keyword">int</span> hsh1[maxn][<span class="number">2</span>],hsh2[maxn][<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> pow1[maxn],pow2[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_hsh</span><span class="params">()</span></span>&#123;</span><br><span class="line">    pow1[<span class="number">0</span>]=pow2[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=p;i++)&#123;</span><br><span class="line">        hsh1[i][<span class="number">0</span>]=(<span class="number">1l</span>l*hsh1[i<span class="number">-1</span>][<span class="number">0</span>]*base1+pos[i]%<span class="number">2</span>+<span class="number">1</span>)%mod1;</span><br><span class="line">        hsh1[i][<span class="number">1</span>]=(<span class="number">1l</span>l*hsh1[i<span class="number">-1</span>][<span class="number">1</span>]*base1+!(pos[i]%<span class="number">2</span>)+<span class="number">1</span>)%mod1;</span><br><span class="line">        pow1[i]=<span class="number">1l</span>l*base1*pow1[i<span class="number">-1</span>]%mod1;</span><br><span class="line">        hsh2[i][<span class="number">0</span>]=(<span class="number">1l</span>l*hsh2[i<span class="number">-1</span>][<span class="number">0</span>]*base2+pos[i]%<span class="number">2</span>+<span class="number">1</span>)%mod2;</span><br><span class="line">        hsh2[i][<span class="number">1</span>]=(<span class="number">1l</span>l*hsh2[i<span class="number">-1</span>][<span class="number">1</span>]*base2+!(pos[i]%<span class="number">2</span>)+<span class="number">1</span>)%mod2;</span><br><span class="line">        pow2[i]=<span class="number">1l</span>l*base2*pow2[i<span class="number">-1</span>]%mod2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; pr;</span><br><span class="line"><span class="function">pr <span class="title">gethsh</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> st)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(st%<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> pr((hsh1[r][<span class="number">0</span>]<span class="number">-1l</span>l*pow1[r-l+<span class="number">1</span>]*hsh1[l<span class="number">-1</span>][<span class="number">0</span>]%mod1+mod1)%mod1,(hsh2[r][<span class="number">0</span>]<span class="number">-1l</span>l*hsh2[l<span class="number">-1</span>][<span class="number">0</span>]*pow2[r-l+<span class="number">1</span>]%mod2+mod2)%mod2);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pr((hsh1[r][<span class="number">1</span>]<span class="number">-1l</span>l*pow1[r-l+<span class="number">1</span>]*hsh1[l<span class="number">-1</span>][<span class="number">1</span>]%mod1+mod1)%mod1,(hsh2[r][<span class="number">1</span>]<span class="number">-1l</span>l*hsh2[l<span class="number">-1</span>][<span class="number">1</span>]*pow2[r-l+<span class="number">1</span>]%mod2+mod2)%mod2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">char</span> s[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;(s+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="keyword">if</span>(s[i]==<span class="string">'0'</span>)</span><br><span class="line">            pos[++p]=i;</span><br><span class="line">    init_hsh();</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;q;</span><br><span class="line">    <span class="keyword">int</span> x,y,l;</span><br><span class="line">    <span class="keyword">while</span>(q--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;l;</span><br><span class="line">        <span class="keyword">int</span> xl=lower_bound(pos,pos+p+<span class="number">1</span>,x)-pos;</span><br><span class="line">        <span class="keyword">int</span> xr=upper_bound(pos,pos+p+<span class="number">1</span>,x+l<span class="number">-1</span>)-pos<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> yl=lower_bound(pos,pos+p+<span class="number">1</span>,y)-pos;</span><br><span class="line">        <span class="keyword">int</span> yr=upper_bound(pos,pos+p+<span class="number">1</span>,y+l<span class="number">-1</span>)-pos<span class="number">-1</span>;</span><br><span class="line">        pr px=gethsh(xl,xr,x);</span><br><span class="line">        pr py=gethsh(yl,yr,y);</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(px==py?<span class="string">"Yes"</span>:<span class="string">"No"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment">0100001001</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">2 9 2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%93%88%E5%B8%8C/" rel="tag"># 哈希</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/07/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E6%9D%BF%EF%BC%88%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84%E3%80%81%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E3%80%81%E5%9B%9E%E6%96%87%E6%A0%91%EF%BC%89/" rel="next" title="字符串模板（后缀数组、后缀自动机、回文树）">
+                <i class="fa fa-chevron-left"></i> 字符串模板（后缀数组、后缀自动机、回文树）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Absoler</p>
+              <p class="site-description motion-element" itemprop="description">acm</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Absoler</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
