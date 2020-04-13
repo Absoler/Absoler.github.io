@@ -251,6 +251,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/24/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%A8%A1%E6%9D%BF/" itemprop="url">强连通分量模板</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T21:54:55+08:00">
+                2020-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E8%BF%9E%E9%80%9A%E6%80%A7%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">连通性相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>知识背景：首先明确<strong>强连通分量</strong>(strongly connected component)的概念，从任一顶点能够到达任一其他顶点的有向图 的顶点子集，而任意有向图<strong>均</strong>可以分解成若干不相交的scc。把每个scc视作一个顶点，可得到一个DAG。</p>
+<p>实现算法：<strong>两次dfs</strong>，第一次 dfs 遍历将顶点<strong>后序</strong>(post order)记录下来vs（vector），这里需要注意的是，不管从哪个点dfs，由于是后序记录，故最终得到的记录是一样的，vs中的顶点（按下标）从前至后对应在DAG中为从尾到头。第二次dfs对于vs中的元素从尾到头进行，使用反向边，故每次dfs只能访问到同一个强连通分量。因而每次dfs时给所到顶点加上一个表示第几个scc的标号，即可完成对该图的分解。</p>
+<p>例题：poj2186</p>
+<p>每头羊有若干崇拜对象，并且崇拜关系可传递，求出被其他所有羊崇拜的羊的个数。</p>
+<p>即求最后一个scc所含顶点个数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; g[<span class="number">10001</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rg[<span class="number">10001</span>];</span><br><span class="line"><span class="keyword">bool</span> used[<span class="number">10001</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vs;</span><br><span class="line"><span class="keyword">int</span> cmp[<span class="number">10001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">	used[v]=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;g[v].<span class="built_in">size</span>(); i++)</span><br><span class="line">		<span class="keyword">if</span>(!used[g[v][i]])</span><br><span class="line">			dfs(g[v][i]);</span><br><span class="line">	vs.push_back(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rdfs</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	used[v]=<span class="literal">true</span>;</span><br><span class="line">	cmp[v]=k;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;rg[v].<span class="built_in">size</span>(); i++)</span><br><span class="line">		<span class="keyword">if</span>(!used[rg[v][i]])</span><br><span class="line">			rdfs(rg[v][i],k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">scc</span><span class="params">()</span> </span>&#123;		<span class="comment">//strongly connected component</span></span><br><span class="line">	<span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">	vs.<span class="built_in">clear</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">		<span class="keyword">if</span>(!used[i])</span><br><span class="line">			dfs(i);</span><br><span class="line">	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=vs.<span class="built_in">size</span>()<span class="number">-1</span>; i&gt;=<span class="number">0</span>; i--)</span><br><span class="line">		<span class="keyword">if</span>(!used[vs[i]])</span><br><span class="line">			rdfs(vs[i],k++);        <span class="comment">//最开始把vs[i]错写成i，把属于不同块的顶点打上了相同标号</span></span><br><span class="line">	<span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m) &#123;</span><br><span class="line">		<span class="keyword">int</span> to,from;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; i++) &#123;</span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;from&gt;&gt;to;</span><br><span class="line">			g[from<span class="number">-1</span>].push_back(to<span class="number">-1</span>);</span><br><span class="line">			rg[to<span class="number">-1</span>].push_back(from<span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> num=scc();</span><br><span class="line">		<span class="keyword">int</span> u,res=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(cmp[i]==num<span class="number">-1</span>) &#123;</span><br><span class="line">				res++;</span><br><span class="line">				u=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">		rdfs(u,<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(!used[i]) &#123;</span><br><span class="line">				res=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;res&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/treap-%E5%8F%AF%E6%8C%81%E4%B9%85%E6%80%A7-%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1661,177 +1820,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/06/%E7%BD%91%E7%BB%9C%E6%B5%81-dij%E6%A8%A1%E6%9D%BF%E9%A2%98HDU6582/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/06/%E7%BD%91%E7%BB%9C%E6%B5%81-dij%E6%A8%A1%E6%9D%BF%E9%A2%98HDU6582/" itemprop="url">网络流&dij模板题HDU6582</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-06T16:44:56+08:00">
-                2020-02-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">图论</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E6%9C%80%E7%9F%AD%E8%B7%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">最短路</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E7%BD%91%E7%BB%9C%E6%B5%81/" itemprop="url" rel="index">
-                    <span itemprop="name">网络流</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>题目给出一个有向图，要求阻挡其中的一些边，使得从1到n的最短路径变长，阻挡一条边的代价是这条边的长度。</p>
-<p>问题其实就转化为，找到从1到n的所有最短路，并在这些路中找到能阻挡最短路的一些边且边权和最小——也就是找到最短路构成图的最小割。</p>
-<p>找所有最短路可以贪心地去找合适的边，什么样的边(u, v)是合适的呢？从1到u，从v到n的最短距离之和等于整体最短路减去这条边权时，意味着这条边可以放在一条最短路中。我们就把它加入新图的集合。</p>
-<p>然后对新图求最大流即可。Dinic算法，正常复杂度为$n^2m$，在求解二分图最大匹配时复杂度是$m\sqrt{n}$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inf 0x3f3f3f3f3f3f3f3f</span></span><br><span class="line"><span class="keyword">int</span> t,n,m;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e4</span>+<span class="number">4</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    ll cap,flow;</span><br><span class="line">    edge(<span class="keyword">int</span> _to,ll _cap,ll _flow):to(_to),cap(_cap),flow(_flow)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;ll,<span class="keyword">int</span>&gt; P;</span><br><span class="line"><span class="built_in">vector</span>&lt;edge&gt; G[maxn],invG[maxn],sG[maxn];</span><br><span class="line">ll d[maxn],invd[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">()</span></span>&#123;</span><br><span class="line">    priority_queue&lt;P,<span class="built_in">vector</span>&lt;P&gt;,greater&lt;P&gt;&gt; que;</span><br><span class="line">    <span class="built_in">memset</span>(d,inf,<span class="keyword">sizeof</span>(d));</span><br><span class="line">    que.push(P(<span class="number">0</span>,<span class="number">1</span>));</span><br><span class="line">    d[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!que.empty())&#123;</span><br><span class="line">        P p=que.top();que.pop();	<span class="comment">//队列里存着被更新过的点</span></span><br><span class="line">        <span class="keyword">int</span> u=p.second;</span><br><span class="line">        <span class="keyword">if</span>(p.first&gt;d[u])    <span class="comment">//这个点的值已经过时了，且由于在把它从队列里拿出来之前已经更新为更小值，它甚至已经做过跳板，没有必要再做了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;G[u].<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            edge e=G[u][i];</span><br><span class="line">            <span class="keyword">if</span>(d[u]+e.cap&lt;d[e.to])&#123;</span><br><span class="line">                d[e.to]=d[u]+e.cap;</span><br><span class="line">                que.push(P(d[e.to],e.to));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(invd,inf,<span class="keyword">sizeof</span>(invd));</span><br><span class="line">    que.push(P(<span class="number">0</span>,n));</span><br><span class="line">    invd[n]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!que.empty())&#123;</span><br><span class="line">        P p=que.top();que.pop();</span><br><span class="line">        <span class="keyword">int</span> u=p.second;</span><br><span class="line">        <span class="keyword">if</span>(p.first&gt;invd[u])    <span class="comment">//之前有更优的，已经是第二次用这个点，相当于vis[u]=1，就直接弃用</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;invG[u].<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            edge e=invG[u][i];</span><br><span class="line">            <span class="keyword">if</span>(invd[u]+e.cap&lt;invd[e.to])&#123;</span><br><span class="line">                invd[e.to]=invd[u]+e.cap;</span><br><span class="line">                que.push(P(invd[e.to],e.to));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Dinic</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> n,m,s, t;</span><br><span class="line">    <span class="built_in">vector</span>&lt;edge&gt; edges;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[maxn];	<span class="comment">//储存边在edges中的下标</span></span><br><span class="line">    <span class="keyword">int</span> d[maxn], cur[maxn];</span><br><span class="line">    <span class="keyword">bool</span> vis[maxn];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) G[i].<span class="built_in">clear</span>();</span><br><span class="line">        edges.<span class="built_in">clear</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> cap)</span> </span>&#123;</span><br><span class="line">        edges.push_back(edge(to, cap, <span class="number">0</span>));</span><br><span class="line">        edges.push_back(edge(from, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">        m = edges.<span class="built_in">size</span>();</span><br><span class="line">        G[from].push_back(m - <span class="number">2</span>);	<span class="comment">//记录刚加入的两条边</span></span><br><span class="line">        G[to].push_back(m - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">BFS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line">        Q.push(s);</span><br><span class="line">        d[s] = <span class="number">0</span>;</span><br><span class="line">        vis[s] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (!Q.empty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = Q.front();</span><br><span class="line">            Q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[x].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">                edge&amp; e = edges[G[x][i]];</span><br><span class="line">                <span class="keyword">if</span> (!vis[e.to] &amp;&amp; e.cap &gt; e.flow) &#123;</span><br><span class="line">                    vis[e.to] = <span class="number">1</span>;</span><br><span class="line">                    d[e.to] = d[x] + <span class="number">1</span>;</span><br><span class="line">                    Q.push(e.to);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> vis[t];	<span class="comment">//还有增广路</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> x, ll a)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//a是当前可允许的最大流量</span></span><br><span class="line">        <span class="keyword">if</span> (x == t || a == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">        <span class="keyword">int</span> flow = <span class="number">0</span>, f;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>&amp; i = cur[x]; i &lt; G[x].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            edge&amp; e = edges[G[x][i]];</span><br><span class="line">            <span class="keyword">if</span> (d[x] + <span class="number">1</span> == d[e.to] &amp;&amp; (f = DFS(e.to, <span class="built_in">min</span>(a, e.cap - e.flow))) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                e.flow += f;</span><br><span class="line">                edges[G[x][i] ^ <span class="number">1</span>].flow -= f;	<span class="comment">//因为一次必定添加一对，所以原边下标是偶数，反向边是奇数</span></span><br><span class="line">                flow += f;</span><br><span class="line">                a -= f;</span><br><span class="line">                <span class="keyword">if</span> (a == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> flow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">Maxflow</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;s = s;</span><br><span class="line">        <span class="keyword">this</span>-&gt;t = t;</span><br><span class="line">        <span class="keyword">int</span> flow = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (BFS()) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(cur, <span class="number">0</span>, <span class="keyword">sizeof</span>(cur));</span><br><span class="line">            flow += DFS(s, inf);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> flow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">        <span class="keyword">int</span> u,v,c;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            G[i].<span class="built_in">clear</span>();</span><br><span class="line">            invG[i].<span class="built_in">clear</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;c);</span><br><span class="line">            G[u].push_back(edge(v,c,<span class="number">0</span>));</span><br><span class="line">            invG[v].push_back(edge(u,c,<span class="number">0</span>)); <span class="comment">//添加反向边</span></span><br><span class="line">        &#125;</span><br><span class="line">        dijkstra();</span><br><span class="line">        Dinic dinic;</span><br><span class="line">        dinic.init(n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;G[i].<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(d[i]+G[i][j].cap+invd[G[i][j].to]==d[n])&#123;</span><br><span class="line">                    dinic.AddEdge(i,G[i][j].to,G[i][j].cap);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;dinic.Maxflow(<span class="number">1</span>,n)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1882,7 +1870,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1904,7 +1892,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

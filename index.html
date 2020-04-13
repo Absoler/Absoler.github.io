@@ -251,6 +251,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/CF1303E%E5%BA%8F%E5%88%97%E8%87%AA%E5%8A%A8%E6%9C%BA-dp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/13/CF1303E%E5%BA%8F%E5%88%97%E8%87%AA%E5%8A%A8%E6%9C%BA-dp/" itemprop="url">CF1303E序列自动机+dp</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-13T18:39:45+08:00">
+                2020-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">字符串</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>序列自动机其实就是一个数组，记录了每个位置后第一次出现字符c是哪个位置，用于解决一些子序列的问题，它共有n+1个状态，即位置0-n，每个状态都是子序列的接受状态。这个数组在On内完成构建</p>
+<p>CF1303E：给字符串s、t问能不能从s中抽取两个不重复的子序列拼接成t。由于长度最大400，考虑枚举两个子序列的分界点，然后两个指针指向两个序列已满足的位置。最初考虑的算法是，直接看这两个指针之后的字符哪个能被较近的字符满足，就先让那个指针增1，这种算法整体是n^2的但有问题就是如果两个指针后需求的字符相同，就没法判断了，所以最后我们还是要用dp。</p>
+<p>dp的话依然先枚举分界位置，然后设置dp[i][j]表示两个子序列分别匹配了i个和j个字符时，已使用的s的最短长度，注意对于每个分界位置i，dp范围是i*(|t|-i)的小矩形，最终整体复杂度是n^3/6。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">401</span>;</span><br><span class="line"><span class="keyword">int</span> T,n,m;</span><br><span class="line"><span class="keyword">char</span> s[maxn],t[maxn];</span><br><span class="line"><span class="keyword">int</span> to[maxn][<span class="number">26</span>],lst[<span class="number">26</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;i++)</span><br><span class="line">        lst[i]=to[n][i]=n+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        lst[s[i+<span class="number">1</span>]-<span class="string">'a'</span>]=i+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">26</span>;j++)&#123;</span><br><span class="line">            to[i][j]=lst[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[maxn][maxn]; <span class="comment">//dp[i][j]表示两段分别匹配长度i和j时最低消耗的原字符串长</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;(s+<span class="number">1</span>)&gt;&gt;(t+<span class="number">1</span>);</span><br><span class="line">        n=<span class="built_in">strlen</span>(s+<span class="number">1</span>),m=<span class="built_in">strlen</span>(t+<span class="number">1</span>);</span><br><span class="line">        init();</span><br><span class="line">        <span class="keyword">bool</span> f=<span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> l=<span class="number">1</span>;l&lt;=m;l++)&#123;</span><br><span class="line">            <span class="comment">//l是第一段子序列的长度</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=l;i++)</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=m-l;j++)</span><br><span class="line">                    dp[i][j]=n+<span class="number">1</span>;</span><br><span class="line">            dp[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> cl=<span class="number">1</span>;cl&lt;=m;cl++)&#123;   <span class="comment">//cl是当前枚举的解决的总长度</span></span><br><span class="line">                <span class="keyword">int</span> i=<span class="built_in">max</span>(<span class="number">0</span>,cl-m+l);</span><br><span class="line">                <span class="keyword">for</span>(;i&lt;=<span class="built_in">min</span>(cl,l);i++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;dp[i<span class="number">-1</span>][cl-i]&lt;n)</span><br><span class="line">                        dp[i][cl-i]=<span class="built_in">min</span>(dp[i][cl-i],to[dp[i<span class="number">-1</span>][cl-i]][t[i]-<span class="string">'a'</span>]);</span><br><span class="line">                    <span class="keyword">if</span>(cl-i&gt;<span class="number">0</span>&amp;&amp;dp[i][cl-i<span class="number">-1</span>]&lt;n)</span><br><span class="line">                        dp[i][cl-i]=<span class="built_in">min</span>(dp[i][cl-i],to[dp[i][cl-i<span class="number">-1</span>]][t[l+cl-i]-<span class="string">'a'</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(dp[l][m-l]&lt;=n)&#123;</span><br><span class="line">                f=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(f?<span class="string">"YES"</span>:<span class="string">"NO"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">aacab</span></span><br><span class="line"><span class="comment">cacab</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/%E5%81%87%E6%97%A5%E8%B5%9Bboss/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1631,165 +1777,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/24/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%A8%A1%E6%9D%BF/" itemprop="url">强连通分量模板</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T21:54:55+08:00">
-                2020-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">图论</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E8%BF%9E%E9%80%9A%E6%80%A7%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
-                    <span itemprop="name">连通性相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>知识背景：首先明确<strong>强连通分量</strong>(strongly connected component)的概念，从任一顶点能够到达任一其他顶点的有向图 的顶点子集，而任意有向图<strong>均</strong>可以分解成若干不相交的scc。把每个scc视作一个顶点，可得到一个DAG。</p>
-<p>实现算法：<strong>两次dfs</strong>，第一次 dfs 遍历将顶点<strong>后序</strong>(post order)记录下来vs（vector），这里需要注意的是，不管从哪个点dfs，由于是后序记录，故最终得到的记录是一样的，vs中的顶点（按下标）从前至后对应在DAG中为从尾到头。第二次dfs对于vs中的元素从尾到头进行，使用反向边，故每次dfs只能访问到同一个强连通分量。因而每次dfs时给所到顶点加上一个表示第几个scc的标号，即可完成对该图的分解。</p>
-<p>例题：poj2186</p>
-<p>每头羊有若干崇拜对象，并且崇拜关系可传递，求出被其他所有羊崇拜的羊的个数。</p>
-<p>即求最后一个scc所含顶点个数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; g[<span class="number">10001</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rg[<span class="number">10001</span>];</span><br><span class="line"><span class="keyword">bool</span> used[<span class="number">10001</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vs;</span><br><span class="line"><span class="keyword">int</span> cmp[<span class="number">10001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">	used[v]=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;g[v].<span class="built_in">size</span>(); i++)</span><br><span class="line">		<span class="keyword">if</span>(!used[g[v][i]])</span><br><span class="line">			dfs(g[v][i]);</span><br><span class="line">	vs.push_back(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rdfs</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	used[v]=<span class="literal">true</span>;</span><br><span class="line">	cmp[v]=k;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;rg[v].<span class="built_in">size</span>(); i++)</span><br><span class="line">		<span class="keyword">if</span>(!used[rg[v][i]])</span><br><span class="line">			rdfs(rg[v][i],k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">scc</span><span class="params">()</span> </span>&#123;		<span class="comment">//strongly connected component</span></span><br><span class="line">	<span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">	vs.<span class="built_in">clear</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">		<span class="keyword">if</span>(!used[i])</span><br><span class="line">			dfs(i);</span><br><span class="line">	<span class="keyword">int</span> k=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=vs.<span class="built_in">size</span>()<span class="number">-1</span>; i&gt;=<span class="number">0</span>; i--)</span><br><span class="line">		<span class="keyword">if</span>(!used[vs[i]])</span><br><span class="line">			rdfs(vs[i],k++);        <span class="comment">//最开始把vs[i]错写成i，把属于不同块的顶点打上了相同标号</span></span><br><span class="line">	<span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m) &#123;</span><br><span class="line">		<span class="keyword">int</span> to,from;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; i++) &#123;</span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;from&gt;&gt;to;</span><br><span class="line">			g[from<span class="number">-1</span>].push_back(to<span class="number">-1</span>);</span><br><span class="line">			rg[to<span class="number">-1</span>].push_back(from<span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> num=scc();</span><br><span class="line">		<span class="keyword">int</span> u,res=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(cmp[i]==num<span class="number">-1</span>) &#123;</span><br><span class="line">				res++;</span><br><span class="line">				u=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">		rdfs(u,<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(!used[i]) &#123;</span><br><span class="line">				res=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;res&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1840,7 +1827,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1862,7 +1849,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
