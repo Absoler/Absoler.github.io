@@ -251,6 +251,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/%E6%97%B6%E9%97%B4%E5%88%86%E6%B2%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/14/%E6%97%B6%E9%97%B4%E5%88%86%E6%B2%BB/" itemprop="url">时间分治</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-14T23:15:00+08:00">
+                2020-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BA%BF%E6%AE%B5%E6%A0%91/" itemprop="url" rel="index">
+                    <span itemprop="name">线段树</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>cdq分治，也叫时间分治，核心概念就是对于若干个操作和查询，维护每次操作在哪个时间段中有效。</p>
+<p><a href="https://ac.nowcoder.com/acm/contest/888/E?&amp;headNav=acm" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/888/E?&amp;headNav=acm</a></p>
+<p>这道题中的size就是时间，我们维护某个size区间上点的连通状况（用并查集维护），进行查询时进入某个点则连上这个点上的边，退出它时把并查集再复原。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson rt&lt;&lt;1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson rt&lt;&lt;1|1</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e5</span>+<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> fa[maxn],h[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fnd</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(fa[x]!=x)</span><br><span class="line">        x=fa[x];</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">history</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x,y,preh;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;history&gt; hs[maxn&lt;&lt;<span class="number">3</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unite</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> o)</span></span>&#123;</span><br><span class="line">    <span class="comment">//在线段树的o点连上了uv边</span></span><br><span class="line">    u=fnd(u);</span><br><span class="line">    v=fnd(v);</span><br><span class="line">    <span class="keyword">if</span>(u==v)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(h[u]&gt;h[v])</span><br><span class="line">        swap(u,v);</span><br><span class="line">    hs[o].push_back(&#123;u,v,h[v]&#125;);</span><br><span class="line">    fa[u]=v;</span><br><span class="line">    h[v]=<span class="built_in">max</span>(h[u]+<span class="number">1</span>,h[v]);</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">undo</span><span class="params">(<span class="keyword">int</span> o)</span></span>&#123;   <span class="comment">//撤销线段树o点上的连边</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,x,y,preh;i&lt;hs[o].<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        x=hs[o][i].x,y=hs[o][i].y,preh=hs[o][i].preh;</span><br><span class="line">        fa[x]=x;h[y]=preh;</span><br><span class="line">    &#125;</span><br><span class="line">    hs[o].<span class="built_in">clear</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> l,r;    <span class="comment">//l..r分别代表以这个值开头的小区间，所以后面update时对于lr大区间添加的是l..r-1，这里存的r比实际区间右端点小1</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; es;</span><br><span class="line">&#125;tree[maxn&lt;&lt;<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123; <span class="comment">//build的意义是为每个节点设置管辖范围lr</span></span><br><span class="line">    tree[rt].es.<span class="built_in">clear</span>();</span><br><span class="line">    tree[rt].l=l;</span><br><span class="line">    tree[rt].r=r;</span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    build(lson,l,mid);</span><br><span class="line">    build(rson,mid+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> rt,<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(L&lt;=tree[rt].l&amp;&amp;R&gt;=tree[rt].r)&#123;</span><br><span class="line">        tree[rt].es.push_back(u);</span><br><span class="line">        tree[rt].es.push_back(v);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(tree[rt].l+tree[rt].r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(L&lt;=mid)&#123;</span><br><span class="line">        update(L,R,lson,u,v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(R&gt;mid)&#123;</span><br><span class="line">        update(L,R,rson,u,v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans,val[maxn&lt;&lt;<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;tree[rt].es.<span class="built_in">size</span>();i+=<span class="number">2</span>)&#123;</span><br><span class="line">        unite(tree[rt].es[i],tree[rt].es[i+<span class="number">1</span>],rt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    if(tree[rt].l==tree[rt].r)&#123;</span></span><br><span class="line"><span class="comment">        ans+=(fnd(1)==fnd(n)?val[tree[rt].l+1]-val[tree[rt].l]:0);</span></span><br><span class="line"><span class="comment">    &#125;else&#123;</span></span><br><span class="line"><span class="comment">        dfs(lson);</span></span><br><span class="line"><span class="comment">        dfs(rson);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//和上面两种写法均可，本题这种快一些</span></span><br><span class="line">    <span class="keyword">if</span>(fnd(<span class="number">1</span>)==fnd(n))&#123; <span class="comment">//优先判通，上面的是只在叶节点判断</span></span><br><span class="line">        ans+=val[tree[rt].r+<span class="number">1</span>]-val[tree[rt].l]; <span class="comment">//这个点的贡献是r-l个小区间的长度和，离散化中应该经常用这种技巧来算区间贡献，</span></span><br><span class="line">        <span class="comment">//这里这么来是因为线段树兄弟节点的lr不可等（刚好大1）所以要求l和r的意义要等价，如果就填lr则前r-l个点代表区间左端点，后面的r是多余的，所以我们干脆让每个值代表它作为左端点的那个区间</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(tree[rt].l!=tree[rt].r)&#123;</span><br><span class="line">        dfs(lson);</span><br><span class="line">        dfs(rson);</span><br><span class="line">    &#125;</span><br><span class="line">    undo(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> u[maxn],v[maxn],l[maxn],r[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">int</span> tot=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;u[i]&gt;&gt;v[i]&gt;&gt;l[i]&gt;&gt;r[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        val[++tot]=l[i];</span><br><span class="line">        val[++tot]=++r[i];</span><br><span class="line">    &#125;</span><br><span class="line">    sort(val+<span class="number">1</span>,val+tot+<span class="number">1</span>);</span><br><span class="line">    tot=unique(val+<span class="number">1</span>,val+<span class="number">1</span>+tot)-val<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        l[i]=lower_bound(val+<span class="number">1</span>,val+<span class="number">1</span>+tot,l[i])-val;</span><br><span class="line">        r[i]=lower_bound(val+<span class="number">1</span>,val+<span class="number">1</span>+tot,r[i])-val;</span><br><span class="line">    &#125;</span><br><span class="line">    build(<span class="number">1</span>,<span class="number">1</span>,tot);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        fa[i]=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        update(l[i],r[i]<span class="number">-1</span>,<span class="number">1</span>,u[i],v[i]);    <span class="comment">//意思是uv这条边在l到r-1（每段区间以左端点来代表）的小区间内都有效，</span></span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/13/CF1303E%E5%BA%8F%E5%88%97%E8%87%AA%E5%8A%A8%E6%9C%BA-dp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1615,168 +1761,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/%E5%89%B2%E7%82%B9%E5%92%8C%E6%A1%A5%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/27/%E5%89%B2%E7%82%B9%E5%92%8C%E6%A1%A5%E6%A8%A1%E6%9D%BF/" itemprop="url">割点和桥模板</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T16:31:28+08:00">
-                2020-03-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">图论</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E8%BF%9E%E9%80%9A%E6%80%A7%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
-                    <span itemprop="name">连通性相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>寻找连通图的割点和桥用的也是tarjan算法，我们计算每个点不经过父亲能到达点的最小dfs序，如果是大于等于父亲的，则说明去掉父节点，该点即无法同上面连通，所以父节点是割点。桥类似，我们对于每个点标记它到父亲的那条边是否是桥。</p>
-<p>cf1277E：</p>
-<p>给出一个图求对于两点ab，有多少对xy使得从x到y的每一条路径都必经ab。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e5</span>+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">5e5</span>+<span class="number">1</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fo(i,n) for(int i=0;i&lt;=n;i++)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,next;</span><br><span class="line">&#125;es[maxm*<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[maxn];</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    es[++cnt]=(edge)&#123;v,head[u]&#125;;</span><br><span class="line">    head[u]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dfn[maxn],low[maxn];    <span class="comment">//low是表示不通过父节点能回到的最小节点</span></span><br><span class="line"><span class="keyword">int</span> ind;</span><br><span class="line"><span class="keyword">int</span> cut[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    dfn[x]=low[x]=++ind;</span><br><span class="line">    <span class="keyword">int</span> child=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">            child++;</span><br><span class="line">            tarjan(v,x);</span><br><span class="line">            low[x]=<span class="built_in">min</span>(low[x],low[v]);</span><br><span class="line">            <span class="keyword">if</span>(!cut[x])&#123;</span><br><span class="line">                <span class="keyword">if</span>(fa!=x&amp;&amp;low[v]&gt;=dfn[x])&#123;  <span class="comment">//子节点不能到达比父亲小的节点,</span></span><br><span class="line">                    <span class="comment">//相等表示另有一条路能回到父节点，如果是桥，要去掉等号</span></span><br><span class="line">                    cut[x]=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(v!=fa)&#123;    <span class="comment">//遇到已经到达过的且不是父亲，说明可以绕道回去</span></span><br><span class="line">            low[x]=<span class="built_in">min</span>(low[x],dfn[v]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(fa==x&amp;&amp;child&gt;<span class="number">1</span>&amp;&amp;!cut[x])&#123;    <span class="comment">//根节点判断方法不一样</span></span><br><span class="line">        cut[x]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> flag[maxn];</span><br><span class="line"><span class="keyword">bool</span> vis[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> f,<span class="keyword">int</span> <span class="built_in">stop</span>)</span></span>&#123;</span><br><span class="line">    flag[x]+=f;vis[x]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x],v;i;i=es[i].next)&#123;</span><br><span class="line">        v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!vis[v]&amp;&amp;v!=<span class="built_in">stop</span>)</span><br><span class="line">            dfs(v,f,<span class="built_in">stop</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t,n,m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> a,b;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            dfn[i]=<span class="number">0</span>;</span><br><span class="line">            low[i]=<span class="number">0</span>;</span><br><span class="line">            cut[i]=<span class="number">0</span>;</span><br><span class="line">            head[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,x,y;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y;</span><br><span class="line">            add(x,y);</span><br><span class="line">            add(y,x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dfn[i])&#123;</span><br><span class="line">                cnt=<span class="number">0</span>;</span><br><span class="line">                tarjan(i,i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ll res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(cut[a]&amp;&amp;cut[b])&#123;</span><br><span class="line">            fo(i,n) flag[i]=<span class="number">0</span>;</span><br><span class="line">            fo(i,n) vis[i]=<span class="number">0</span>;</span><br><span class="line">            dfs(a,<span class="number">1</span>,b);</span><br><span class="line">            fo(i,n) vis[i]=<span class="number">0</span>;</span><br><span class="line">            dfs(b,<span class="number">2</span>,a);</span><br><span class="line">            <span class="keyword">int</span> anum=<span class="number">0</span>,bnum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(flag[i]==<span class="number">1</span>)</span><br><span class="line">                    anum++;</span><br><span class="line">                <span class="keyword">if</span>(flag[i]==<span class="number">2</span>)</span><br><span class="line">                    bnum++;</span><br><span class="line">            &#125;</span><br><span class="line">            res=((ll)anum<span class="number">-1</span>)*(bnum<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;res&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>桥的代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> low[MAXN], dfn[MAXN], iscut[MAXN], dfs_clock;</span><br><span class="line"><span class="keyword">bool</span> isbridge[MAXN];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAXN];</span><br><span class="line"><span class="keyword">int</span> cnt_bridge;</span><br><span class="line"><span class="keyword">int</span> father[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> fa)</span> </span>&#123;</span><br><span class="line">  father[u] = fa;</span><br><span class="line">  low[u] = dfn[u] = ++dfs_clock;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[u].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> v = G[u][i];</span><br><span class="line">    <span class="keyword">if</span> (!dfn[v]) &#123;</span><br><span class="line">      tarjan(v, u);</span><br><span class="line">      low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">      <span class="keyword">if</span> (low[v] &gt; dfn[u]) &#123;</span><br><span class="line">        isbridge[v] = <span class="literal">true</span>;</span><br><span class="line">        ++cnt_bridge;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dfn[v] &lt; dfn[u] &amp;&amp; v != fa) &#123;</span><br><span class="line">      low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1827,7 +1811,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1849,7 +1833,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
