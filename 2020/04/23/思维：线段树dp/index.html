@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="线段树,思维,dp,牛客多校," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;881&#x2F;I 不得不说这题是真的难，看题解都差点没用理解。） 给定平面上若干（1e5）点，每个点ab两个权值，要求将其分为两组，a组的a权值和加b组的b权值和最大，划分条件转化一下就是，不能有a出现在b的右下，也就是要找到一条不降的折线，其上是a，其下是b。我们认为位于折线上的那些点属于b。 暴力dp是可做的，离散化xy并枚举每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="思维：线段树dp">
+<meta property="og:url" content="http://yoursite.com/2020/04/23/%E6%80%9D%E7%BB%B4%EF%BC%9A%E7%BA%BF%E6%AE%B5%E6%A0%91dp/index.html">
+<meta property="og:site_name" content="Absoler&#39;s blogs">
+<meta property="og:description" content="https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;881&#x2F;I 不得不说这题是真的难，看题解都差点没用理解。） 给定平面上若干（1e5）点，每个点ab两个权值，要求将其分为两组，a组的a权值和加b组的b权值和最大，划分条件转化一下就是，不能有a出现在b的右下，也就是要找到一条不降的折线，其上是a，其下是b。我们认为位于折线上的那些点属于b。 暴力dp是可做的，离散化xy并枚举每">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-23T01:25:51.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:37:46.030Z">
+<meta property="article:author" content="Absoler">
+<meta property="article:tag" content="线段树">
+<meta property="article:tag" content="思维">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="牛客多校">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/23/思维：线段树dp/"/>
+
+
+
+
+
+  <title>思维：线段树dp | Absoler's blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Absoler's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/23/%E6%80%9D%E7%BB%B4%EF%BC%9A%E7%BA%BF%E6%AE%B5%E6%A0%91dp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">思维：线段树dp</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-23T09:25:51+08:00">
+                2020-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dp/" itemprop="url" rel="index">
+                    <span itemprop="name">dp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://ac.nowcoder.com/acm/contest/881/I" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/881/I</a></p>
+<p>不得不说这题是真的难，看题解都差点没用理解。）</p>
+<p>给定平面上若干（1e5）点，每个点ab两个权值，要求将其分为两组，a组的a权值和加b组的b权值和最大，划分条件转化一下就是，不能有a出现在b的右下，也就是要找到一条不降的折线，其上是a，其下是b。我们认为位于折线上的那些点属于b。</p>
+<p>暴力dp是可做的，离散化xy并枚举每一列的划分点。考虑优化，认为dp[i]表示，加入i点后，如果折线的最后一个转折点是i，那么总和的最大值。它该怎么更新呢，对于点1~i-1，如果它们比i低，那折线就可以从它们那里拐过来，然后再加上b[i]；同时，再加入i点后，其余的dp值也需更新，比i高的折线会把i看作b，比i低的折线会把i看作a，分别加上这两个值即可。</p>
+<p>这里我们注意到，已经用到了单点修改、区间加、询问区间最大值的操作，就果断线段树，将y离散化后在y上建立线段树，也就是dp数组是用线段树实现的。注意需要考虑x轴，这样一条会把所有点视为a的折线，建线段树的时候按1，1+tot范围去建立即可。</p>
+<p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits&#x2F;stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ll long long</span><br><span class="line">#define lson (o&lt;&lt;1)</span><br><span class="line">#define rson (o&lt;&lt;1|1)</span><br><span class="line">const int maxn&#x3D;1e5+4;</span><br><span class="line">struct point&#123;</span><br><span class="line">    int x,y;</span><br><span class="line">    ll a,b;</span><br><span class="line">    friend bool operator&lt;(const point&amp; u,const point&amp; v)&#123;</span><br><span class="line">        if(u.x!&#x3D;v.x)&#123;</span><br><span class="line">            return u.x&lt;v.x;</span><br><span class="line">        &#125;else</span><br><span class="line">            return u.y&gt;v.y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;ps[maxn];</span><br><span class="line">int _y[maxn];</span><br><span class="line"></span><br><span class="line">ll val[maxn&lt;&lt;2],lazy[maxn&lt;&lt;2];  &#x2F;&#x2F;val维护线段树区间最大值,dp融入其中了</span><br><span class="line"></span><br><span class="line">void build(int o,int l,int r)&#123;</span><br><span class="line">    val[o]&#x3D;0;</span><br><span class="line">    lazy[o]&#x3D;0;</span><br><span class="line">    if(l&#x3D;&#x3D;r)</span><br><span class="line">        return ;</span><br><span class="line">    int mid&#x3D;(l+r)&#x2F;2;</span><br><span class="line">    build(lson,l,mid);</span><br><span class="line">    build(rson,mid+1,r);</span><br><span class="line">&#125;</span><br><span class="line">void pushup(int o)&#123;</span><br><span class="line">    val[o]&#x3D;max(val[lson],val[rson]);</span><br><span class="line">&#125;</span><br><span class="line">void pushdown(int o)&#123;</span><br><span class="line">    if(lazy[o])&#123;</span><br><span class="line">        val[lson]+&#x3D;lazy[o];</span><br><span class="line">        val[rson]+&#x3D;lazy[o];</span><br><span class="line">        lazy[lson]+&#x3D;lazy[o];</span><br><span class="line">        lazy[rson]+&#x3D;lazy[o];</span><br><span class="line">        lazy[o]&#x3D;0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void update1(int o,int l,int r,int L,int R,ll add)&#123;</span><br><span class="line">    &#x2F;&#x2F;区间增加</span><br><span class="line">    if(l&gt;&#x3D;L&amp;&amp;r&lt;&#x3D;R)&#123;</span><br><span class="line">        val[o]+&#x3D;add;</span><br><span class="line">        lazy[o]+&#x3D;add;</span><br><span class="line">        return ;</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(o);</span><br><span class="line">    int mid&#x3D;(l+r)&#x2F;2;</span><br><span class="line">    if(L&lt;&#x3D;mid)&#123;</span><br><span class="line">        update1(lson,l,mid,L,R,add);</span><br><span class="line">    &#125;</span><br><span class="line">    if(R&gt;mid)&#123;</span><br><span class="line">        update1(rson,mid+1,r,L,R,add);</span><br><span class="line">    &#125;</span><br><span class="line">    pushup(o);</span><br><span class="line">&#125;</span><br><span class="line">void update2(int o,int l,int r,int pos,ll x)&#123;</span><br><span class="line">    &#x2F;&#x2F;单点修改</span><br><span class="line">    if(l&#x3D;&#x3D;r)&#123;</span><br><span class="line">        val[o]&#x3D;max(x,val[o]);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(o);</span><br><span class="line">    int mid&#x3D;(l+r)&#x2F;2;</span><br><span class="line">    if(pos&lt;&#x3D;mid)&#123;</span><br><span class="line">        update2(lson,l,mid,pos,x);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        update2(rson,mid+1,r,pos,x);</span><br><span class="line">    &#125;</span><br><span class="line">    pushup(o);</span><br><span class="line">&#125;</span><br><span class="line">ll query(int o,int l,int r,int L,int R)&#123;</span><br><span class="line">    if(l&gt;&#x3D;L&amp;&amp;r&lt;&#x3D;R)&#123;</span><br><span class="line">        return val[o];</span><br><span class="line">    &#125;</span><br><span class="line">    pushdown(o);</span><br><span class="line">    int mid&#x3D;(l+r)&#x2F;2;</span><br><span class="line">    ll res&#x3D;0;</span><br><span class="line">    if(L&lt;&#x3D;mid)&#123;</span><br><span class="line">        res&#x3D;max(res,query(lson,l,mid,L,R));</span><br><span class="line">    &#125;</span><br><span class="line">    if(R&gt;mid)&#123;</span><br><span class="line">        res&#x3D;max(res,query(rson,mid+1,r,L,R));</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int n;</span><br><span class="line">int main()&#123;</span><br><span class="line">    while(cin&gt;&gt;n)&#123;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;n;i++)&#123;</span><br><span class="line">            cin&gt;&gt;ps[i].x&gt;&gt;ps[i].y&gt;&gt;ps[i].a&gt;&gt;ps[i].b;</span><br><span class="line">            _y[i]&#x3D;ps[i].y;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(_y+1,_y+n+1);</span><br><span class="line">        int tot&#x3D;unique(_y+1,_y+1+n)-_y-1;</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;n;i++)&#123;</span><br><span class="line">            ps[i].y&#x3D;lower_bound(_y+1,_y+tot+1,ps[i].y)-_y+1;  &#x2F;&#x2F;从2开始计数，1留给x轴</span><br><span class="line">        &#125;</span><br><span class="line">        sort(ps+1,ps+1+n);</span><br><span class="line">        build(1,1,tot+1);</span><br><span class="line">        for(int i&#x3D;1;i&lt;&#x3D;n;i++)&#123;</span><br><span class="line">            ll dpi&#x3D;query(1,1,tot+1,1,ps[i].y)+ps[i].b;</span><br><span class="line">            update2(1,1,tot+1,ps[i].y,dpi);</span><br><span class="line">            update1(1,1,tot+1,1,ps[i].y-1,ps[i].a);</span><br><span class="line">            if(ps[i].y&lt;tot+1)</span><br><span class="line">                update1(1,1,tot+1,ps[i].y+1,tot+1,ps[i].b);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;val[1]&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*</span><br><span class="line">3</span><br><span class="line">1 1 1 2</span><br><span class="line">2 2 2 1</span><br><span class="line">3 3 1 2</span><br><span class="line"></span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"># 线段树</a>
+          
+            <a href="/tags/%E6%80%9D%E7%BB%B4/" rel="tag"># 思维</a>
+          
+            <a href="/tags/dp/" rel="tag"># dp</a>
+          
+            <a href="/tags/%E7%89%9B%E5%AE%A2%E5%A4%9A%E6%A0%A1/" rel="tag"># 牛客多校</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/14/%E6%97%B6%E9%97%B4%E5%88%86%E6%B2%BB/" rel="next" title="时间分治">
+                <i class="fa fa-chevron-left"></i> 时间分治
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Absoler</p>
+              <p class="site-description motion-element" itemprop="description">acm</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Absoler</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
