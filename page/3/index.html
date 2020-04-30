@@ -251,6 +251,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/%E6%9E%84%E9%80%A0%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE%E7%A7%AF%E7%B4%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/10/%E6%9E%84%E9%80%A0%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE%E7%A7%AF%E7%B4%AF/" itemprop="url">构造算法题目积累</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T16:50:54+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="cf1304D"><a href="#cf1304D" class="headerlink" title="cf1304D"></a>cf1304D</h3><p>题目给出n-1个‘&lt;’‘&gt;’约束，第i个位置的&lt;意味着结果串中a[i]&lt;a[i+1]，要求用1~n个数构造出两个串，分别拥有最小和最大的LIS。</p>
+<p>思路：我们将升序1~n中连续&gt;的区间执行reverse操作，执行完毕后的结果就是拥有最大LIS的满足约束的结果串。</p>
+<p>证明：这种方法利用了全部的上升区间，及下降区间的一侧边界。我们知道对于连续下降区间，最多只能有一个元素被选入LIS，因此整体利用率达到最大。</p>
+<p>最短的类似，首先降序n~1，然后不满足约束的reverse。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    ans[i]=i+<span class="number">1</span>;</span><br><span class="line">l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(cst[i]==<span class="string">'&gt;'</span>)&#123;</span><br><span class="line">        r=i+<span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l&lt;r)</span><br><span class="line">            reverse(ans+l,ans+r+<span class="number">1</span>);</span><br><span class="line">        l=i+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(l&lt;r)</span><br><span class="line">    reverse(ans+l,ans+r+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d%c"</span>,ans[i],(i==n<span class="number">-1</span>?<span class="string">'\n'</span>:<span class="string">' '</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/2-sat%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1231,14 +1380,15 @@
 
 
 
-<p>询问第K大</p>
-<p>原理从二进制上看很直观，从小到大每个基有选与不选两种选择，将K看作二进制数，选取1位置的基即可，如果线性基能产生0则把k-1。</p>
+<p>询问第K大（线性基的值域第k大）</p>
+<p>原理从二进制上看很直观，从小到大每个基有选与不选两种选择，将K看作二进制数，选取1位置的基即可，如果线性基能产生0则将k减1。</p>
+<p>询问第k大的时候需要你把每个线性基的低位都清除</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(ll k)</span></span>&#123;	<span class="comment">//要求线性基已经整理成对角矩阵的形式</span></span><br><span class="line">    <span class="keyword">if</span>(cnt&lt;N)	<span class="comment">//结果集包含0</span></span><br><span class="line">        k--;	<span class="comment">//把0的次序去掉</span></span><br><span class="line">    ll res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">61</span>;i++)&#123;</span><br><span class="line">        <span class="comment">//这个循环顺序无所谓</span></span><br><span class="line">        <span class="keyword">if</span>((k&gt;&gt;i)&amp;<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(rk[i]==<span class="number">-1</span>)   <span class="comment">//还没有这个基</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            res^=p[rk[i]];  <span class="comment">//rk标记第i个基的下标,其实应该是rk的逆映射（</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 <p>询问第k大例题：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> T,N,Q;</span><br><span class="line">ll p[<span class="number">62</span>],rk[<span class="number">62</span>];</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> cse=<span class="number">1</span>;cse&lt;=T;cse++)&#123;</span><br><span class="line">        <span class="built_in">memset</span>(rk,<span class="number">-1</span>,<span class="keyword">sizeof</span>(rk));</span><br><span class="line">        <span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</span><br><span class="line">        cnt=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;N;</span><br><span class="line">        ll x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x;</span><br><span class="line">            inst(x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">61</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p[i])</span><br><span class="line">                rk[cnt++]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">61</span>;i++)&#123;     <span class="comment">//清除低位1</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((<span class="number">1l</span>l&lt;&lt;j)&amp;p[i])</span><br><span class="line">                    p[i]^=p[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;Q;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Case #"</span>&lt;&lt;cse&lt;&lt;<span class="string">":\n"</span>;</span><br><span class="line">        <span class="keyword">while</span>(Q--)&#123;</span><br><span class="line">            ll k;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;k;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;query(k)&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> T,N,Q;</span><br><span class="line">ll p[<span class="number">62</span>],rk[<span class="number">62</span>];	<span class="comment">//p[i]表示2^i的基</span></span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> cse=<span class="number">1</span>;cse&lt;=T;cse++)&#123;</span><br><span class="line">        <span class="built_in">memset</span>(rk,<span class="number">-1</span>,<span class="keyword">sizeof</span>(rk));</span><br><span class="line">        <span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</span><br><span class="line">        cnt=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;N;</span><br><span class="line">        ll x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x;</span><br><span class="line">            inst(x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">61</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p[i])</span><br><span class="line">                rk[cnt++]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">61</span>;i++)&#123;     <span class="comment">//清除低位1</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((<span class="number">1l</span>l&lt;&lt;j)&amp;p[i])</span><br><span class="line">                    p[i]^=p[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;Q;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Case #"</span>&lt;&lt;cse&lt;&lt;<span class="string">":\n"</span>;</span><br><span class="line">        <span class="keyword">while</span>(Q--)&#123;</span><br><span class="line">            ll k;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;k;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;query(k)&lt;&lt;<span class="string">'\n'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
           
@@ -1758,155 +1908,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" itemprop="url">博客踩坑记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-20T18:57:11+08:00">
-                2020-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">博客搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="npm-安装"><a href="#npm-安装" class="headerlink" title="npm 安装"></a>npm 安装</h3><p>nodejs安装在了D盘，同时npm安装目录也设在了D盘，按照博客上教的方法设置即可</p>
-<p>由于官网速度慢，想按照网友的方法设置镜像下载源，需要nrm这个工具，但由于某些原因npm安装一直卡在checking安装状态这一步（翻墙中）。这个时候从网上查到了一个方法：删掉C盘Roaming目录下的npm和npm-cache文件夹，但是可能是我更改了默认安装目录的原因，并未找到这两个文件夹。</p>
-<p>最后的解决方法是，使用–registry=<a href="https://registry.npm.taobao.org先临时使用镜像站下载该工具，然后按照其他教程设置默认下载源为taobao即可" target="_blank" rel="noopener">https://registry.npm.taobao.org先临时使用镜像站下载该工具，然后按照其他教程设置默认下载源为taobao即可</a></p>
-<h3 id="hexo提交免输入密码"><a href="#hexo提交免输入密码" class="headerlink" title="hexo提交免输入密码"></a>hexo提交免输入密码</h3><p>设置ssh后，项目目录下_config.yml文件中的repository的地址写成<a href="mailto:git@github.com">git@github.com</a>:格式</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>ssh -T <a href="mailto:git@gitbub.com">git@gitbub.com</a>测试ssh连接</p>
-<h3 id="删除文章"><a href="#删除文章" class="headerlink" title="删除文章"></a>删除文章</h3><p>hexo clean</p>
-<p>删除本地md</p>
-<p>hexo d -g</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1957,7 +1958,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
