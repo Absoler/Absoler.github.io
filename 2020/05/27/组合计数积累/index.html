@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/code/%E6%95%B0%E6%A8%A1/%E5%AE%9E%E9%AA%8C/%E5%9B%BE%E7%89%87/image-20200527175132377.png">
 <meta property="article:published_time" content="2020-05-27T01:51:46.000Z">
-<meta property="article:modified_time" content="2020-05-27T15:29:08.337Z">
+<meta property="article:modified_time" content="2020-05-31T07:26:45.124Z">
 <meta property="article:author" content="Absoler">
 <meta property="article:tag" content="计数">
 <meta property="article:tag" content="组合数学">
@@ -315,6 +315,17 @@
 
                 
                 
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">组合计数</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -349,6 +360,11 @@
 <p>最开始想到了棋盘走法问题，那个答案是C(n+m, m)，于是便想着把这道题区域中过对角线的部分中可能sum重复的走法剪掉，后来发现不可取，</p>
 <p><img src="../../../../code/%E6%95%B0%E6%A8%A1/%E5%AE%9E%E9%AA%8C/%E5%9B%BE%E7%89%87/image-20200527175132377.png" alt="image-20200527175132377"></p>
 <p>解法很巧妙，先选中sum最小的一种（沿着顶边和右边），接下来如果想扩大，只能把顶点向左下“内缩”，这样sum可以加一，同时我们知道最大的sum，在最小最大的这个区间中，每个sum均可以通过从最小sum缩若干次达到，所以sum不同的方案数就是这个区间的范围。“In order for us to come from the minimum to the maximum way, we must bend the way exactly 1 time per each cell of table (except for the cells of the minimum way). That is, the number of changes equals the number of cells not belonging to the minimum way”这是算最大最小差值的方法。</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p><a href="https://codeforces.com/contest/1359/problem/E" target="_blank" rel="noopener">https://codeforces.com/contest/1359/problem/E</a></p>
+<p>打完失眠过程中想出了正确结论。</p>
+<p>一个序列是stable的当且仅当其中有一个元素是其余元素的公因数。然后我们就可以从1到大看每个数的倍数总量够k个的话，就可以从i及它的倍数中选k-1个构成稳定序列。求组合数用费马小定理的话是log(mod)复杂度，整体nlog(mod)。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">5e5</span>+<span class="number">2</span>;</span><br><span class="line">ll fact[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fact[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;maxn;i++)&#123;</span><br><span class="line">        fact[i]=fact[i<span class="number">-1</span>]*i%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">pow</span><span class="params">(ll x,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">    ll res=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(k)&#123;</span><br><span class="line">        <span class="keyword">if</span>(k&amp;<span class="number">1</span>)</span><br><span class="line">            res=res*x%mod;</span><br><span class="line">        x=(x*x)%mod;</span><br><span class="line">        k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">rev</span><span class="params">(ll x,<span class="keyword">int</span> p)</span></span>&#123; <span class="comment">//费马小定理求逆元</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">pow</span>(x,p<span class="number">-2</span>)%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">c</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span></span>&#123;  <span class="comment">//C(n,m)</span></span><br><span class="line">    ll res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        res=fact[n]*rev(fact[m],mod)%mod*rev(fact[n-m],mod)%mod;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(exception e)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;n&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> n,k;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;k;</span><br><span class="line">    ll ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n&amp;&amp;i*k&lt;=n;i++)&#123;</span><br><span class="line">        ll num=n/i;</span><br><span class="line">        ans=(ans+c(num<span class="number">-1</span>,k<span class="number">-1</span>))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -492,7 +508,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -525,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">2</span></a></li></ol></div>
             
 
           </div>
