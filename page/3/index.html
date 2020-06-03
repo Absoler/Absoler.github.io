@@ -251,6 +251,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/%E5%89%B2%E7%82%B9%E5%92%8C%E6%A1%A5%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/27/%E5%89%B2%E7%82%B9%E5%92%8C%E6%A1%A5%E6%A8%A1%E6%9D%BF/" itemprop="url">割点和桥模板</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-27T16:31:28+08:00">
+                2020-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E8%BF%9E%E9%80%9A%E6%80%A7%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">连通性相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>寻找连通图的割点和桥用的也是tarjan算法，我们计算每个点不经过父亲能到达点的最小dfs序，如果是大于等于父亲的，则说明去掉父节点，该点即无法同上面连通，所以父节点是割点。桥类似，我们对于每个点标记它到父亲的那条边是否是桥。</p>
+<p>cf1277E：</p>
+<p>给出一个图求对于两点ab，有多少对xy使得从x到y的每一条路径都必经ab。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e5</span>+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">5e5</span>+<span class="number">1</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fo(i,n) for(int i=0;i&lt;=n;i++)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,next;</span><br><span class="line">&#125;es[maxm*<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[maxn];</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    es[++cnt]=(edge)&#123;v,head[u]&#125;;</span><br><span class="line">    head[u]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dfn[maxn],low[maxn];    <span class="comment">//low是表示不通过父节点能回到的最小节点</span></span><br><span class="line"><span class="keyword">int</span> ind;</span><br><span class="line"><span class="keyword">int</span> cut[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    dfn[x]=low[x]=++ind;</span><br><span class="line">    <span class="keyword">int</span> child=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">            child++;</span><br><span class="line">            tarjan(v,x);</span><br><span class="line">            low[x]=<span class="built_in">min</span>(low[x],low[v]);</span><br><span class="line">            <span class="keyword">if</span>(!cut[x])&#123;</span><br><span class="line">                <span class="keyword">if</span>(fa!=x&amp;&amp;low[v]&gt;=dfn[x])&#123;  <span class="comment">//子节点不能到达比父亲小的节点,</span></span><br><span class="line">                    <span class="comment">//相等表示另有一条路能回到父节点，如果是桥，要去掉等号</span></span><br><span class="line">                    cut[x]=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(v!=fa)&#123;    <span class="comment">//遇到已经到达过的且不是父亲，说明可以绕道回去</span></span><br><span class="line">            low[x]=<span class="built_in">min</span>(low[x],dfn[v]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(fa==x&amp;&amp;child&gt;<span class="number">1</span>&amp;&amp;!cut[x])&#123;    <span class="comment">//根节点判断方法不一样</span></span><br><span class="line">        cut[x]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> flag[maxn];</span><br><span class="line"><span class="keyword">bool</span> vis[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> f,<span class="keyword">int</span> <span class="built_in">stop</span>)</span></span>&#123;</span><br><span class="line">    flag[x]+=f;vis[x]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x],v;i;i=es[i].next)&#123;</span><br><span class="line">        v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(!vis[v]&amp;&amp;v!=<span class="built_in">stop</span>)</span><br><span class="line">            dfs(v,f,<span class="built_in">stop</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t,n,m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> a,b;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            dfn[i]=<span class="number">0</span>;</span><br><span class="line">            low[i]=<span class="number">0</span>;</span><br><span class="line">            cut[i]=<span class="number">0</span>;</span><br><span class="line">            head[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,x,y;i&lt;m;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y;</span><br><span class="line">            add(x,y);</span><br><span class="line">            add(y,x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!dfn[i])&#123;</span><br><span class="line">                cnt=<span class="number">0</span>;</span><br><span class="line">                tarjan(i,i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ll res=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(cut[a]&amp;&amp;cut[b])&#123;</span><br><span class="line">            fo(i,n) flag[i]=<span class="number">0</span>;</span><br><span class="line">            fo(i,n) vis[i]=<span class="number">0</span>;</span><br><span class="line">            dfs(a,<span class="number">1</span>,b);</span><br><span class="line">            fo(i,n) vis[i]=<span class="number">0</span>;</span><br><span class="line">            dfs(b,<span class="number">2</span>,a);</span><br><span class="line">            <span class="keyword">int</span> anum=<span class="number">0</span>,bnum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(flag[i]==<span class="number">1</span>)</span><br><span class="line">                    anum++;</span><br><span class="line">                <span class="keyword">if</span>(flag[i]==<span class="number">2</span>)</span><br><span class="line">                    bnum++;</span><br><span class="line">            &#125;</span><br><span class="line">            res=((ll)anum<span class="number">-1</span>)*(bnum<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;res&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>桥的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> low[MAXN], dfn[MAXN], iscut[MAXN], dfs_clock;</span><br><span class="line"><span class="keyword">bool</span> isbridge[MAXN];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAXN];</span><br><span class="line"><span class="keyword">int</span> cnt_bridge;</span><br><span class="line"><span class="keyword">int</span> father[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> fa)</span> </span>&#123;</span><br><span class="line">  father[u] = fa;</span><br><span class="line">  low[u] = dfn[u] = ++dfs_clock;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[u].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> v = G[u][i];</span><br><span class="line">    <span class="keyword">if</span> (!dfn[v]) &#123;</span><br><span class="line">      tarjan(v, u);</span><br><span class="line">      low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">      <span class="keyword">if</span> (low[v] &gt; dfn[u]) &#123;</span><br><span class="line">        isbridge[v] = <span class="literal">true</span>;</span><br><span class="line">        ++cnt_bridge;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dfn[v] &lt; dfn[u] &amp;&amp; v != fa) &#123;</span><br><span class="line">      low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1671,162 +1833,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/11/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/11/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E6%A8%A1%E6%9D%BF/" itemprop="url">计算几何模板</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-11T17:32:10+08:00">
-                2020-02-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" itemprop="url" rel="index">
-                    <span itemprop="name">计算几何</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="点、线段"><a href="#点、线段" class="headerlink" title="点、线段"></a>点、线段</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps=<span class="number">1e-8</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">sgn</span><span class="params">(<span class="keyword">double</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">fabs</span>(x)&lt;eps) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x&lt;<span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span>&#123;</span></span><br><span class="line">    <span class="keyword">double</span> x,y;</span><br><span class="line">    Point()&#123;</span><br><span class="line">        x=<span class="number">0</span>;</span><br><span class="line">        y=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Point(<span class="keyword">double</span> a,<span class="keyword">double</span> b):x(a),y(b)&#123;&#125;</span><br><span class="line">    <span class="keyword">inline</span> Point <span class="keyword">operator</span>-(<span class="keyword">const</span> Point&amp; b)<span class="keyword">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Point(x-b.x,y-b.y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inline</span> Point <span class="keyword">operator</span>+(<span class="keyword">const</span> Point&amp; b)<span class="keyword">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Point(x+b.x,y+b.y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">dot</span><span class="params">(<span class="keyword">const</span> Point&amp; b)</span><span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x*b.x+y*b.y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">cross</span><span class="params">(<span class="keyword">const</span> Point&amp;b,<span class="keyword">const</span> Point&amp; c)</span><span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (b.x-x)*(c.y-y)-(c.x-x)*(b.y-y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">double</span> <span class="keyword">operator</span>^(Point a)&#123;<span class="keyword">return</span> x*a.y-y*a.x;&#125;</span><br><span class="line">    <span class="keyword">double</span> <span class="keyword">operator</span>*(Point a)&#123;<span class="keyword">return</span> x*a.x+y*a.y;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">dist</span><span class="params">(<span class="keyword">const</span> Point&amp; a, <span class="keyword">const</span> Point&amp; b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sqrt</span>((b-a).dot(b-a));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//得线段交点</span></span><br><span class="line"><span class="function">Point <span class="title">LineCross</span><span class="params">(<span class="keyword">const</span> Point &amp;a, <span class="keyword">const</span> Point &amp;b, <span class="keyword">const</span> Point &amp;c, <span class="keyword">const</span> Point &amp;d)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">double</span> u = a.cross(b, c), v = b.cross(a, d);</span><br><span class="line">     <span class="keyword">return</span> Point((c.x * v + d.x * u) / (u + v), (c.y * v + d.y * u) / (u + v));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断线段和直线相交 poj3304</span></span><br><span class="line"><span class="comment">//s-e是直线</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">const</span> Point&amp; s,<span class="keyword">const</span> Point&amp; e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(sgn(dist(s,e))==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;	<span class="comment">//注意特殊情况，线段退化为点时会造成共线的误判</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(sgn(s.cross(lines[i][<span class="number">0</span>],e))*sgn(s.cross(lines[i][<span class="number">1</span>],e))&gt;<span class="number">0</span>)</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Point stk[maxn];</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> Point&amp; a,<span class="keyword">const</span> Point&amp; b)&#123;</span><br><span class="line">    <span class="keyword">return</span> a.x&lt;b.x||(a.x==b.x&amp;&amp;a.y&lt;b.y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Andrew</span><span class="params">()</span></span>&#123;	<span class="comment">//逆时针扫描</span></span><br><span class="line">    sort(ps,ps+n);</span><br><span class="line">    <span class="keyword">int</span> top=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(top&gt;<span class="number">1</span>&amp;&amp;sgn((stk[top<span class="number">-1</span>]-stk[top<span class="number">-2</span>])^(ps[i]-stk[top<span class="number">-1</span>]))&lt;=<span class="number">0</span>) top--;</span><br><span class="line">        stk[top++]=ps[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> k=top;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-2</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">while</span>(top&gt;k&amp;&amp;sgn((stk[top<span class="number">-1</span>]-stk[top<span class="number">-2</span>])^(ps[i]-stk[top<span class="number">-1</span>]))&lt;=<span class="number">0</span>) top--;</span><br><span class="line">        stk[top++]=ps[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> top;	<span class="comment">//凸包点数</span></span><br><span class="line">&#125;<span class="comment">//结果点集逆时针存放在stk中</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="半平面交"><a href="#半平面交" class="headerlink" title="半平面交"></a>半平面交</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//poj3335求多边形有无核</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Line</span> &#123;</span></span><br><span class="line">    Point s, e;</span><br><span class="line">    Line() &#123;&#125;</span><br><span class="line">    Line(Point a, Point b) &#123;s = a, e = b;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">getAngle</span><span class="params">(Line a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">atan2</span>(a.e.y-a.s.y,a.e.x-a.s.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(Line a,Line b)&#123;</span><br><span class="line">    <span class="keyword">double</span> A=getAngle(a);</span><br><span class="line">    <span class="keyword">double</span> B=getAngle(b);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">fabs</span>(A-B)&lt;eps) <span class="keyword">return</span> ((a.e-a.s)^(b.e-a.s))&gt;<span class="number">0</span>;  <span class="comment">//把靠右的排在前面</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> A&lt;B;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">Point <span class="title">getIntersectPoint</span><span class="params">(Line a,Line b)</span></span>&#123;     <span class="comment">//用线段b的两点坐标组合成交点坐标</span></span><br><span class="line">    <span class="keyword">double</span> u=a.s.cross(a.e,b.e);</span><br><span class="line">    <span class="keyword">double</span> v=a.e.cross(a.s,b.s);</span><br><span class="line">    <span class="keyword">return</span> Point((v*b.e.x+u*b.s.x)/(u+v),(v*b.e.y+u*b.s.y)/(u+v));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">onRight</span><span class="params">(Line a,Line b,Line c)</span></span>&#123; <span class="comment">//判断bc交点是否在a的右边</span></span><br><span class="line">    Point o=getIntersectPoint(b,c);</span><br><span class="line">    <span class="keyword">if</span>(((a.e-a.s)^(o-a.s))&lt;<span class="number">0</span>)   <span class="comment">//这里不能取等，也许是因为能留下一条边就尽量留？这样tail-head的合法判定更易满足</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Line lines[maxn];</span><br><span class="line">Line que[maxn];</span><br><span class="line">Point ps[maxn];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">HalfPlaneIntersect</span><span class="params">()</span></span>&#123;</span><br><span class="line">    sort(lines,lines+n);</span><br><span class="line">    <span class="keyword">int</span> head=<span class="number">0</span>,tail=<span class="number">0</span>,cnt=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">fabs</span>(getAngle(lines[i])-getAngle(lines[i+<span class="number">1</span>]))&lt;eps)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        lines[cnt++]=lines[i];</span><br><span class="line">    &#125;</span><br><span class="line">    lines[cnt++]=lines[n<span class="number">-1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cnt;i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(tail-head&gt;<span class="number">1</span>&amp;&amp;onRight(lines[i],que[tail<span class="number">-1</span>],que[tail<span class="number">-2</span>]))   <span class="comment">//用新边优化队尾</span></span><br><span class="line">            tail--;</span><br><span class="line">        <span class="keyword">while</span>(tail-head&gt;<span class="number">1</span>&amp;&amp;onRight(lines[i],que[head],que[head+<span class="number">1</span>])) <span class="comment">//用新边优化队首</span></span><br><span class="line">            head++;</span><br><span class="line">        que[tail++]=lines[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(tail-head&gt;<span class="number">1</span>&amp;&amp;onRight(que[head],que[tail<span class="number">-1</span>],que[tail<span class="number">-2</span>]))</span><br><span class="line">        tail--;</span><br><span class="line">    <span class="keyword">while</span>(tail-head&gt;<span class="number">1</span>&amp;&amp;onRight(que[tail<span class="number">-1</span>],que[head],que[head+<span class="number">1</span>]))</span><br><span class="line">        head++;</span><br><span class="line">    <span class="keyword">if</span>(tail-head&lt;<span class="number">3</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">()</span> </span>&#123;  <span class="comment">//判断点的顺序是逆时针</span></span><br><span class="line">  <span class="keyword">double</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;n<span class="number">-1</span>; i++) &#123;</span><br><span class="line">    ans += ((ps[i]-ps[<span class="number">0</span>])^(ps[i+<span class="number">1</span>]-ps[<span class="number">0</span>]));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ans&gt;<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;ps[i].x&gt;&gt;ps[i].y;</span><br><span class="line">        <span class="keyword">if</span>(judge())&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">                lines[i]=Line(ps[i],ps[(i+<span class="number">1</span>)%n]);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">                lines[i]=Line(ps[(i+<span class="number">1</span>)%n],ps[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(HalfPlaneIntersect())&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="旋转卡壳"><a href="#旋转卡壳" class="headerlink" title="旋转卡壳"></a>旋转卡壳</h3><p>求多边形最长直径</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意它的思想，实际情况中可能求的不是直径</span></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">rotating_caliper</span><span class="params">(Point* ps)</span></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">        res=dist(ps[<span class="number">0</span>],ps[<span class="number">1</span>]);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">2</span>;</span><br><span class="line">        ps[n]=ps[<span class="number">0</span>];	<span class="comment">//省的再对i取模……</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(ps[i].cross(ps[i+<span class="number">1</span>],ps[j])&lt;ps[i].cross(ps[i+<span class="number">1</span>],ps[j+<span class="number">1</span>]))</span><br><span class="line">                j=(j+<span class="number">1</span>)%n;</span><br><span class="line">            res=<span class="built_in">max</span>(res,<span class="built_in">max</span>(dist(ps[i],ps[j]),dist(ps[i+<span class="number">1</span>],ps[j])));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1877,7 +1883,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
