@@ -87,7 +87,7 @@
 <meta property="og:description" content="cf1304D题目给出n-1个‘&lt;’‘&gt;’约束，第i个位置的&lt;意味着结果串中a[i]&lt;a[i+1]，要求用1~n个数构造出两个串，分别拥有最小和最大的LIS。 思路：我们将升序1~n中连续&gt;的区间执行reverse操作，执行完毕后的结果就是拥有最大LIS的满足约束的结果串。 证明：这种方法利用了全部的上升区间，及下降区间的一侧边界。我们知道对于连续下降区间，最多只能有">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-10T08:50:54.000Z">
-<meta property="article:modified_time" content="2020-04-03T13:26:10.886Z">
+<meta property="article:modified_time" content="2020-06-19T13:50:09.598Z">
 <meta property="article:author" content="Absoler">
 <meta property="article:tag" content="构造">
 <meta name="twitter:card" content="summary">
@@ -350,6 +350,18 @@
 
 
 
+<h3 id="cf1350D"><a href="#cf1350D" class="headerlink" title="cf1350D"></a>cf1350D</h3><p><a href="https://codeforces.com/contest/1350/problem/D" target="_blank" rel="noopener">https://codeforces.com/contest/1350/problem/D</a></p>
+<p>给一个序列，可以将其中任意一段全部改成该段中位数的大小，中位数如果是偶数长度则取n/2位置。问最后能否把序列所有值都改为k。</p>
+<p>首先可以发现，如果我们手上有两个连续的k，那么必能实现（一步一步转化）；如果一个k都没有则必不可能实现。如果只有一些不连续的k呢？这个情况稍微复杂一点，我们发现，如果一个k和一个比它大的数相邻，那么可以转化为两个连续k。这里我们为了方便把a的值分为0、1、2，代表小于、等于和大于k。如果有两个相同的值相邻或者只间隔一个数，那么有办法把任意长的序列都转化为该值。那么我们就要求，必定存在一组11、12、22是相邻的或间隔一，如果是前两者那么可以直接从那里构造出等于k的序列，如果是后者则可以构造2序列直到临近k，然后执行12转化；如果说12的间隔都大于1，那么序列最后不可能转化为0以外的数，失败。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e5</span>+<span class="number">4</span>;</span><br><span class="line"><span class="keyword">int</span> a[maxn],t,n,k;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;k;</span><br><span class="line">        <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;a[i];</span><br><span class="line">            <span class="keyword">if</span>(a[i]&gt;k) a[i]=<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(a[i]==k) f=<span class="number">1</span>,a[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> a[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f&amp;&amp;n&gt;<span class="number">1</span>)&#123;</span><br><span class="line">            f=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((a[i]&amp;&amp;a[i+<span class="number">1</span>])||(i&lt;=n<span class="number">-2</span>&amp;&amp;a[i]&amp;&amp;a[i+<span class="number">2</span>]))&#123;</span><br><span class="line">                    f=<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(f?<span class="string">"yes"</span>:<span class="string">"no"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="cf1365F"><a href="#cf1365F" class="headerlink" title="cf1365F"></a>cf1365F</h3><p>对字符串定义这样一种操作：交换前缀和后缀。然后问字符串a经过若干次操作能不能变成b。2e5</p>
+<p>最初看的时候理解成前后缀做轴对称，心想那不是简单，结果发现是交换……字符串的方向不变。</p>
+<p>可以这样去理解交换操作：两个字符串分别向着彼此的方向移动，直到占据对方的位置。这样来看交换操作又变得对称了起来。然后就很容易发现一个性质：位于对称位置的字符，不管怎么交换，它们依然是一对。这样我们就得出一个结论，要想变换得到b字符串，首先要字符间的成对的关系是一致的。</p>
+<p>接下来我们证明如果成对关系一致必然可以转换。我们可以从中间字符开始向两边一一变化，面临的任务就是要把一对靠边近的点转移到靠边远的一对位置上，我们发现最多三次就可以，并且不会用到更靠内的字符。也就是能在不影响之前成果的基础上转移成功。</p>
+<p>所以只需要字符的成对关系一致就可以了，存一下pair，排序完比较一下，再特判一下奇数的中间元素相同。</p>
 
       
     </div>
@@ -469,7 +481,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -491,7 +503,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -524,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cf1304D"><span class="nav-number">1.</span> <span class="nav-text">cf1304D</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cf1304D"><span class="nav-number">1.</span> <span class="nav-text">cf1304D</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cf1350D"><span class="nav-number">2.</span> <span class="nav-text">cf1350D</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cf1365F"><span class="nav-number">3.</span> <span class="nav-text">cf1365F</span></a></li></ol></div>
             
 
           </div>
