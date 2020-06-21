@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="思维," />
+  <meta name="keywords" content="思维,dp,并查集," />
 
 
 
@@ -87,9 +87,11 @@
 <meta property="og:description" content="记录脑筋急转弯 习惯链式前向星需要memset head数组 记得特判 20校赛前一天的三角形https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;1355&#x2F;problem&#x2F;C 给三段区间，要求找出能构成三角形的向量的数目。乍一看要画图用线性规划……好麻烦就没写出来，出题人给的是另一种思路：想办法算出对于每个s（a+b&lt;&#x3D;s&lt;&#x3D;b+c），有多少对（x，y）的和等于s。这样一来我">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-16T15:52:32.000Z">
-<meta property="article:modified_time" content="2020-06-17T13:50:31.993Z">
+<meta property="article:modified_time" content="2020-06-21T13:49:17.288Z">
 <meta property="article:author" content="Absoler">
 <meta property="article:tag" content="思维">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="并查集">
 <meta name="twitter:card" content="summary">
 
 
@@ -361,6 +363,13 @@
 <h3 id="数列翻转一下，再做dp"><a href="#数列翻转一下，再做dp" class="headerlink" title="数列翻转一下，再做dp"></a>数列翻转一下，再做dp</h3><p><a href="https://codeforces.com/contest/1366/problem/E" target="_blank" rel="noopener">https://codeforces.com/contest/1366/problem/E</a></p>
 <p>将当前要在a中找到的、每个subarray中的合法最小值称作目标数字。</p>
 <p>直接从头开始线性遍历的话会遇到一个问题，就是你无法确定每个subarray中哪个数字是一定要选的，在存在连续一段目标数字的时候。而如果你把ab数组翻转一下，就会发现，遇到的第一个目标数字一定要选，如果不选的话，上一个subarray的最小值就会是它了。</p>
+<h3 id="并查集の新体验"><a href="#并查集の新体验" class="headerlink" title="并查集の新体验"></a>并查集の新体验</h3><p><a href="https://codeforces.com/contest/1370/problem/E" target="_blank" rel="noopener">https://codeforces.com/contest/1370/problem/E</a></p>
+<p>分析题意得出，要做的就是求去重后的序列能拆分成多少个0101串（或1010），因为这样的串是可以一次处理完。</p>
+<p>首先用序列自动机搞出来nxt数组，表示i及之后第一个0（1）元素的位置。然后从前向后贪心地选0101就行，有个问题就是选过的要标记vis，然后如果在找下一个元素时发现选过了，就要沿着nxt一直向下去找，这显然是n平方的。所以我们用了带路径压缩的并查集来处理。fa就表明，当当前元素不可用的时候，下一个要找谁。</p>
+<p><a href="https://codeforces.com/contest/1370/submission/84587433" target="_blank" rel="noopener">https://codeforces.com/contest/1370/submission/84587433</a></p>
+<p>路径压缩</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (fa[x]==x?x:fa[x]=<span class="built_in">find</span>(fa[x]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -379,6 +388,10 @@
         <div class="post-tags">
           
             <a href="/tags/%E6%80%9D%E7%BB%B4/" rel="tag"># 思维</a>
+          
+            <a href="/tags/dp/" rel="tag"># dp</a>
+          
+            <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag"># 并查集</a>
           
         </div>
       
@@ -502,7 +515,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -535,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#习惯"><span class="nav-number">1.</span> <span class="nav-text">习惯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20校赛前一天的三角形"><span class="nav-number">2.</span> <span class="nav-text">20校赛前一天的三角形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大区间和beta"><span class="nav-number">3.</span> <span class="nav-text">最大区间和beta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数列翻转一下，再做dp"><span class="nav-number">4.</span> <span class="nav-text">数列翻转一下，再做dp</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#习惯"><span class="nav-number">1.</span> <span class="nav-text">习惯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20校赛前一天的三角形"><span class="nav-number">2.</span> <span class="nav-text">20校赛前一天的三角形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大区间和beta"><span class="nav-number">3.</span> <span class="nav-text">最大区间和beta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数列翻转一下，再做dp"><span class="nav-number">4.</span> <span class="nav-text">数列翻转一下，再做dp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集の新体验"><span class="nav-number">5.</span> <span class="nav-text">并查集の新体验</span></a></li></ol></div>
             
 
           </div>

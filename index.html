@@ -1118,6 +1118,13 @@
 <h3 id="数列翻转一下，再做dp"><a href="#数列翻转一下，再做dp" class="headerlink" title="数列翻转一下，再做dp"></a>数列翻转一下，再做dp</h3><p><a href="https://codeforces.com/contest/1366/problem/E" target="_blank" rel="noopener">https://codeforces.com/contest/1366/problem/E</a></p>
 <p>将当前要在a中找到的、每个subarray中的合法最小值称作目标数字。</p>
 <p>直接从头开始线性遍历的话会遇到一个问题，就是你无法确定每个subarray中哪个数字是一定要选的，在存在连续一段目标数字的时候。而如果你把ab数组翻转一下，就会发现，遇到的第一个目标数字一定要选，如果不选的话，上一个subarray的最小值就会是它了。</p>
+<h3 id="并查集の新体验"><a href="#并查集の新体验" class="headerlink" title="并查集の新体验"></a>并查集の新体验</h3><p><a href="https://codeforces.com/contest/1370/problem/E" target="_blank" rel="noopener">https://codeforces.com/contest/1370/problem/E</a></p>
+<p>分析题意得出，要做的就是求去重后的序列能拆分成多少个0101串（或1010），因为这样的串是可以一次处理完。</p>
+<p>首先用序列自动机搞出来nxt数组，表示i及之后第一个0（1）元素的位置。然后从前向后贪心地选0101就行，有个问题就是选过的要标记vis，然后如果在找下一个元素时发现选过了，就要沿着nxt一直向下去找，这显然是n平方的。所以我们用了带路径压缩的并查集来处理。fa就表明，当当前元素不可用的时候，下一个要找谁。</p>
+<p><a href="https://codeforces.com/contest/1370/submission/84587433" target="_blank" rel="noopener">https://codeforces.com/contest/1370/submission/84587433</a></p>
+<p>路径压缩</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (fa[x]==x?x:fa[x]=<span class="built_in">find</span>(fa[x]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -1838,7 +1845,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
