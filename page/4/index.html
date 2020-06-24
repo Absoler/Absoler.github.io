@@ -251,6 +251,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/%E6%9E%84%E9%80%A0%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE%E7%A7%AF%E7%B4%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/10/%E6%9E%84%E9%80%A0%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE%E7%A7%AF%E7%B4%AF/" itemprop="url">构造算法题目积累</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-10T16:50:54+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="cf1304D"><a href="#cf1304D" class="headerlink" title="cf1304D"></a>cf1304D</h3><p>题目给出n-1个‘&lt;’‘&gt;’约束，第i个位置的&lt;意味着结果串中a[i]&lt;a[i+1]，要求用1~n个数构造出两个串，分别拥有最小和最大的LIS。</p>
+<p>思路：我们将升序1~n中连续&gt;的区间执行reverse操作，执行完毕后的结果就是拥有最大LIS的满足约束的结果串。</p>
+<p>证明：这种方法利用了全部的上升区间，及下降区间的一侧边界。我们知道对于连续下降区间，最多只能有一个元素被选入LIS，因此整体利用率达到最大。</p>
+<p>最短的类似，首先降序n~1，然后不满足约束的reverse。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    ans[i]=i+<span class="number">1</span>;</span><br><span class="line">l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(cst[i]==<span class="string">'&gt;'</span>)&#123;</span><br><span class="line">        r=i+<span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l&lt;r)</span><br><span class="line">            reverse(ans+l,ans+r+<span class="number">1</span>);</span><br><span class="line">        l=i+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(l&lt;r)</span><br><span class="line">    reverse(ans+l,ans+r+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d%c"</span>,ans[i],(i==n<span class="number">-1</span>?<span class="string">'\n'</span>:<span class="string">' '</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="cf1350D"><a href="#cf1350D" class="headerlink" title="cf1350D"></a>cf1350D</h3><p><a href="https://codeforces.com/contest/1350/problem/D" target="_blank" rel="noopener">https://codeforces.com/contest/1350/problem/D</a></p>
+<p>给一个序列，可以将其中任意一段全部改成该段中位数的大小，中位数如果是偶数长度则取n/2位置。问最后能否把序列所有值都改为k。</p>
+<p>首先可以发现，如果我们手上有两个连续的k，那么必能实现（一步一步转化）；如果一个k都没有则必不可能实现。如果只有一些不连续的k呢？这个情况稍微复杂一点，我们发现，如果一个k和一个比它大的数相邻，那么可以转化为两个连续k。这里我们为了方便把a的值分为0、1、2，代表小于、等于和大于k。如果有两个相同的值相邻或者只间隔一个数，那么有办法把任意长的序列都转化为该值。那么我们就要求，必定存在一组11、12、22是相邻的或间隔一，如果是前两者那么可以直接从那里构造出等于k的序列，如果是后者则可以构造2序列直到临近k，然后执行12转化；如果说12的间隔都大于1，那么序列最后不可能转化为0以外的数，失败。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e5</span>+<span class="number">4</span>;</span><br><span class="line"><span class="keyword">int</span> a[maxn],t,n,k;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;k;</span><br><span class="line">        <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;a[i];</span><br><span class="line">            <span class="keyword">if</span>(a[i]&gt;k) a[i]=<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(a[i]==k) f=<span class="number">1</span>,a[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> a[i]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f&amp;&amp;n&gt;<span class="number">1</span>)&#123;</span><br><span class="line">            f=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((a[i]&amp;&amp;a[i+<span class="number">1</span>])||(i&lt;=n<span class="number">-2</span>&amp;&amp;a[i]&amp;&amp;a[i+<span class="number">2</span>]))&#123;</span><br><span class="line">                    f=<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(f?<span class="string">"yes"</span>:<span class="string">"no"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="cf1365F"><a href="#cf1365F" class="headerlink" title="cf1365F"></a>cf1365F</h3><p>对字符串定义这样一种操作：交换前缀和后缀。然后问字符串a经过若干次操作能不能变成b。2e5</p>
+<p>最初看的时候理解成前后缀做轴对称，心想那不是简单，结果发现是交换……字符串的方向不变。</p>
+<p>可以这样去理解交换操作：两个字符串分别向着彼此的方向移动，直到占据对方的位置。这样来看交换操作又变得对称了起来。然后就很容易发现一个性质：位于对称位置的字符，不管怎么交换，它们依然是一对。这样我们就得出一个结论，要想变换得到b字符串，首先要字符间的成对的关系是一致的。</p>
+<p>接下来我们证明如果成对关系一致必然可以转换。我们可以从中间字符开始向两边一一变化，面临的任务就是要把一对靠边近的点转移到靠边远的一对位置上，我们发现最多三次就可以，并且不会用到更靠内的字符。也就是能在不影响之前成果的基础上转移成功。</p>
+<p>所以只需要字符的成对关系一致就可以了，存一下pair，排序完比较一下，再特判一下奇数的中间元素相同。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/2-sat%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1759,155 +1920,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/20/%E5%8D%9A%E5%AE%A2%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" itemprop="url">博客踩坑记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-20T18:57:11+08:00">
-                2020-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="npm-安装"><a href="#npm-安装" class="headerlink" title="npm 安装"></a>npm 安装</h3><p>nodejs安装在了D盘，同时npm安装目录也设在了D盘，按照博客上教的方法设置即可</p>
-<p>由于官网速度慢，想按照网友的方法设置镜像下载源，需要nrm这个工具，但由于某些原因npm安装一直卡在checking安装状态这一步（翻墙中）。这个时候从网上查到了一个方法：删掉C盘Roaming目录下的npm和npm-cache文件夹，但是可能是我更改了默认安装目录的原因，并未找到这两个文件夹。</p>
-<p>最后的解决方法是，使用–registry=<a href="https://registry.npm.taobao.org先临时使用镜像站下载该工具，然后按照其他教程设置默认下载源为taobao即可" target="_blank" rel="noopener">https://registry.npm.taobao.org先临时使用镜像站下载该工具，然后按照其他教程设置默认下载源为taobao即可</a></p>
-<h3 id="hexo提交免输入密码"><a href="#hexo提交免输入密码" class="headerlink" title="hexo提交免输入密码"></a>hexo提交免输入密码</h3><p>设置ssh后，项目目录下_config.yml文件中的repository的地址写成<a href="mailto:git@github.com">git@github.com</a>:格式</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>ssh -T <a href="mailto:git@gitbub.com">git@gitbub.com</a>测试ssh连接</p>
-<h3 id="删除文章"><a href="#删除文章" class="headerlink" title="删除文章"></a>删除文章</h3><p>hexo clean</p>
-<p>删除本地md</p>
-<p>hexo d -g</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1958,7 +1970,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

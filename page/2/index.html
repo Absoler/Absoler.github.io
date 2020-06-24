@@ -251,6 +251,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/30/%E7%94%B7%E9%BB%98%E5%A5%B3%E6%B3%AA%EF%BC%81%E7%BA%BF%E6%80%A7%E5%9F%BA%E6%B1%82%E4%BA%A4%E5%85%A8%E7%BD%91%E6%9C%80%E9%80%9A%E4%BF%97%E8%A7%A3%E9%87%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/30/%E7%94%B7%E9%BB%98%E5%A5%B3%E6%B3%AA%EF%BC%81%E7%BA%BF%E6%80%A7%E5%9F%BA%E6%B1%82%E4%BA%A4%E5%85%A8%E7%BD%91%E6%9C%80%E9%80%9A%E4%BF%97%E8%A7%A3%E9%87%8A/" itemprop="url">男默女泪！线性基求交全网最通俗解释</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-30T17:58:37+08:00">
+                2020-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%9F%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">线性基</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://ac.nowcoder.com/acm/contest/884/B" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/884/B</a></p>
+<p>题目大意就是对于n个集合，每个集合最多32个unsigned int，给出m个询问问对于[l,r]的集合，是否都能各自通过异或得到x。很明显要维护区间线性基的交。</p>
+<p>这道题我第一遍做的时候对线性基的理解还不是很深……当时误认为了求出的线性基都只有一个二进制位1，所以合并的时候就直接取与，然后就wa在了百分之六十。后来突然意识到有可能线性基的低位还有1存在，但并未考虑。后来上网查线性基取交的正确做法，给出的那套线代角度的证明实在看不懂，自己想了好久……这里用大白话给出我自己的直观理解。</p>
+<p>我们首先要知道，线性基求交的本质是对于两个集合A、B和它们的基baseA、baseB，找到一组基使得既可以通过baseA表达，也可以通过baseB表达。一个通常的想法可以是，这个基脱胎于这两组基中的一组，比如我们对baseB挨个判断是否能被baseA表达，如果可以，这个基就是共有的。这里会有一个问题就是，baseB的低位1并未被完全清除，比如11和01，其实可以产生10这个基，于是我们修改表述为：要求选出baseB中的那些可以被baseA和baseB中低位基共同表达出来的基（等式转化一下就变成了，找出baseB中i和i以下某些基的异或和，这个异或和同样能被baseA表示）。</p>
+<p>这里大部分人给出的做法是：在用baseA不断削减baseB中的某个基的同时，如果遇到削减不下去的情况，就把当前值增添到新baseA中（代码中为all），以待后续的基使用，同时记录下来削减到这个地步所需要的baseA（代码中为d），最终，如果某个baseB中的基，能够被一些baseA（在低位baseB的帮助下）削减至0，那么这些baseA的异或值就是一个合法新基，同样用到的baseBi和它的低位“帮手”的异或值也是这个。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson (o&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson (o&lt;&lt;1|1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">5e4</span>+<span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxp=<span class="number">32</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ll x=<span class="number">0</span>;<span class="keyword">char</span> ch=getchar();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;ch=getchar();&#125;</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;x=x*<span class="number">10</span>+ch-<span class="string">'0'</span>;ch=getchar();&#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">base</span>&#123;</span></span><br><span class="line">    ll p[maxp];</span><br><span class="line">    base()&#123; <span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">clr</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=maxp<span class="number">-1</span>;i;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p[i])&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=i<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(p[j]&amp;&amp;(p[i]&amp;(<span class="number">1l</span>l&lt;&lt;j)))</span><br><span class="line">                        p[i]^=p[j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=maxp<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(x&amp;(<span class="number">1l</span>l&lt;&lt;i))&#123;</span><br><span class="line">                <span class="keyword">if</span>(p[i]) x^=p[i];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;initp[maxn],tree[maxn&lt;&lt;<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inst</span><span class="params">(ll x,base&amp; bse)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=maxp<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&amp;(<span class="number">1l</span>l&lt;&lt;i))&#123;</span><br><span class="line">            <span class="keyword">if</span>(!bse.p[i])&#123;</span><br><span class="line">                bse.p[i]=x;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">                x^=bse.p[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(x==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">base d,all;</span><br><span class="line"><span class="function">base <span class="title">merge</span><span class="params">(<span class="keyword">const</span> base&amp; a,<span class="keyword">const</span> base&amp; b)</span></span>&#123;</span><br><span class="line">    base res;</span><br><span class="line">    d=a,all=a; <span class="comment">//all装的是目前所有可用的低位基</span></span><br><span class="line">    ll k;	<span class="comment">//k是把baseBi和它的低位帮手削减至0所用到的baseA的异或和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;maxp;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b.p[i]==<span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        ll v=b.p[i];k=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">for</span>(j=i;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(((<span class="number">1l</span>l&lt;&lt;j)&amp;v))&#123;</span><br><span class="line">                <span class="keyword">if</span>(all.p[j]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    v^=all.p[j];</span><br><span class="line">                    k^=d.p[j];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!v)</span><br><span class="line">            res.p[i]=k;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            all.p[j]=v;</span><br><span class="line">            d.p[j]=k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">base merge(const base&amp; a,const base&amp; b)&#123;</span></span><br><span class="line"><span class="comment">    base res;</span></span><br><span class="line"><span class="comment">    for(int i=0;i&lt;maxp;i++)&#123;</span></span><br><span class="line"><span class="comment">        if(b.p[i]==0)</span></span><br><span class="line"><span class="comment">            continue;</span></span><br><span class="line"><span class="comment">        ll v=b.p[i];</span></span><br><span class="line"><span class="comment">        for(int j=i;j&gt;=0;j--)&#123;</span></span><br><span class="line"><span class="comment">            if((1ll&lt;&lt;j)&amp;v)&#123;</span></span><br><span class="line"><span class="comment">                if(a.p[j])&#123;</span></span><br><span class="line"><span class="comment">                    v^=a.p[j];</span></span><br><span class="line"><span class="comment">                &#125;else&#123;</span></span><br><span class="line"><span class="comment">                    break;</span></span><br><span class="line"><span class="comment">                &#125;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        if(v==0)</span></span><br><span class="line"><span class="comment">            res.p[i]=b.p[i];</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    return res;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">        tree[o]=initp[l];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    build(lson,l,mid);</span><br><span class="line">    build(rson,mid+<span class="number">1</span>,r);</span><br><span class="line">    tree[o]=merge(tree[lson],tree[rson]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> o,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> L,<span class="keyword">int</span> R,ll x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l&gt;=L&amp;&amp;r&lt;=R)&#123;</span><br><span class="line">        <span class="keyword">return</span> tree[o].check(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">bool</span> f1=<span class="literal">true</span>,f2=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L&lt;=mid)&#123;</span><br><span class="line">        f1=query(lson,l,mid,L,R,x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(R&gt;mid)&#123;</span><br><span class="line">        f2=query(rson,mid+<span class="number">1</span>,r,L,R,x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f1&amp;&amp;f2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,k;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k);ll x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=k;j++)&#123;</span><br><span class="line">            x=<span class="built_in">read</span>();</span><br><span class="line">            inst(x,initp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//initp[i].clr();</span></span><br><span class="line">    &#125;</span><br><span class="line">    build(<span class="number">1</span>,<span class="number">1</span>,n);</span><br><span class="line">    <span class="keyword">while</span>(m--)&#123;</span><br><span class="line">        <span class="keyword">int</span> l,r;</span><br><span class="line">        ll x;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;l,&amp;r);x=<span class="built_in">read</span>();</span><br><span class="line">        <span class="built_in">printf</span>(query(<span class="number">1</span>,<span class="number">1</span>,n,l,r,x)?<span class="string">"YES\n"</span>:<span class="string">"NO\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实我自己中间有一种想法就是，预先把所有基中能清理的低位1都清理掉，这样就不用考虑baseB的低位帮手的问题了（有了它也没用）使得merge函数极为简单（注释掉的那个），但后来想到，即使baseB都“净身”，也不排除会有必须和兄弟一起才能表示baseA的情况例如（baseB={1100,0011},baseA={1111}）。其实它们是可以共同表示1111这个数字，但在我那个算法中就漏掉了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/28/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1591,165 +1751,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/%E9%95%BF%E9%93%BE%E5%89%96%E5%88%86%E4%BC%98%E5%8C%96%E6%A0%91%E4%B8%8Adp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/01/%E9%95%BF%E9%93%BE%E5%89%96%E5%88%86%E4%BC%98%E5%8C%96%E6%A0%91%E4%B8%8Adp/" itemprop="url">长链剖分优化树上dp</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-01T21:36:59+08:00">
-                2020-04-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">图论</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" itemprop="url" rel="index">
-                    <span itemprop="name">树上问题</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>长链剖分可以把<strong>维护子树中只与深度有关的信息</strong>做到线性的时间复杂度。</p>
-<p>例题cf1009f</p>
-<p>给一棵树，定义每个点的dom值为，以该点为根的子树重中，节点数最多的那一层的层数，即那一层距离这个根节点有几条边，如果多层节点数相同，取最小的层数。例如单独叶节点的dom值是0，一条垂直的链的dom值也是0（每层数量都是1，取最前面的）</p>
-<p>定义dp[i][j]为i树第j层的节点数，如果暴力遍历复杂度是n^2。我们用类似启发式合并的思想，对于长链（最深而非最重的链）处理后的结果直接拿给父节点用，然后再去依次解决轻节点，并把这些轻节点向父节点暴力合并。由于所有的轻链合并到深链上之后就“失效”了，之后再也用不到，所有整体时间复杂度只有O(n)。（太nb了这个算法……</p>
-<p>由于剖分的性质，一条链上的节点在一个区间，子树的节点也都在一个区间，所以dp数组不必为难开n^2大小，我们考虑用指针实现，这样也实现了重儿子O(1)传递dp数组给父亲，实际上就是用了同一块内存，重儿子跑完了直接父亲就顺着用（看代码吧。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e6</span>+<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,next;</span><br><span class="line">&#125;es[maxn*<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[maxn],cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    es[++cnt]=(edge)&#123; v,head[u]&#125;;</span><br><span class="line">    head[u]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> h[maxn],son[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    h[x]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(v==fa)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        dfs1(v,x);</span><br><span class="line">        h[x]=<span class="built_in">max</span>(h[x],h[v]+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(h[v]&gt;h[son[x]])</span><br><span class="line">            son[x]=v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *dp[maxn],g[maxn],dfn[maxn];    <span class="comment">//dp[i][j]表示和根节点i相距j条边的子孙数量（树的第j层节点个数）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    <span class="comment">//先搜重儿子，这样重儿子和父节点的dp数组地址差1，刚好可以公用</span></span><br><span class="line">    dfn[x]=++dfn[<span class="number">0</span>];</span><br><span class="line">    dp[x]=g+dfn[x];</span><br><span class="line">    <span class="keyword">if</span>(son[x])</span><br><span class="line">        dfs2(son[x],x);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(v==fa||v==son[x])</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        dfs2(v,x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve_dp</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(son[x]&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        solve_dp(son[x],x);</span><br><span class="line">        <span class="comment">//这时son[x]的dp数组已经构建完成，地址就比x的大1，刚好深度也大1，直接就成为了x的dp数组</span></span><br><span class="line">        ans[x]=ans[son[x]]+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dp[x][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(dp[x][ans[x]]==dp[x][<span class="number">0</span>]) <span class="comment">//如果x只有一个子节点，且是一条垂直的链，那么它的ans可以再向前提</span></span><br><span class="line">        ans[x]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=es[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> v=es[i].to;</span><br><span class="line">        <span class="keyword">if</span>(v==son[x]||fa==v)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        solve_dp(v,x);</span><br><span class="line">        <span class="keyword">int</span> len=h[v];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">            dp[x][j+<span class="number">1</span>]+=dp[v][j];</span><br><span class="line">            <span class="keyword">if</span>(dp[x][j+<span class="number">1</span>]&gt;dp[x][ans[x]])</span><br><span class="line">                ans[x]=j+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(dp[x][j+<span class="number">1</span>]==dp[x][ans[x]]&amp;&amp;ans[x]&gt;j+<span class="number">1</span>)</span><br><span class="line">                ans[x]=j+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>,x,y;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y;</span><br><span class="line">        add(x,y);add(y,x);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs1(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    dfs2(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    solve_dp(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1800,7 +1801,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
