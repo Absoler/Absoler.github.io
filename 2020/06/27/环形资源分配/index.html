@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="三分," />
+  <meta name="keywords" content="思维,贪心," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="二分用于在单调序列上以logn的时间确定某个值，三分则用在凸函数上，即先增后减序列，可以找它的极值。我们需要mid&#x3D;(l+r)&#x2F;2和midmid&#x3D;(mid+r)&#x2F;2这两个分界点，前者大则令r&#x3D;midmid，否则令l&#x3D;mid。 例题：cf939E 12345678910111213141516171819202122232425262728293031323334353637383940#inclu">
+<meta name="description" content="https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;1373&#x2F;problem&#x2F;F 这题感觉出的很棒，感觉很简洁经典的题面，却从未见过（可能是做题太少）。 有环形的n个城市、n个资源站交替排布，每个城市需要资源ai，每个资源站最多能提供资源bi（只能给它两侧的城市ai、ai+1提供）。问能这n个城市的需求能否得到满足。1e6 这题一看很明显就知道能通过某种很妙的算法扫一遍就行，但比赛中想不">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三分法">
-<meta property="og:url" content="http://yoursite.com/2020/03/15/%E4%B8%89%E5%88%86%E6%B3%95/index.html">
+<meta property="og:title" content="环形资源分配">
+<meta property="og:url" content="http://yoursite.com/2020/06/27/%E7%8E%AF%E5%BD%A2%E8%B5%84%E6%BA%90%E5%88%86%E9%85%8D/index.html">
 <meta property="og:site_name" content="Absoler&#39;s blogs">
-<meta property="og:description" content="二分用于在单调序列上以logn的时间确定某个值，三分则用在凸函数上，即先增后减序列，可以找它的极值。我们需要mid&#x3D;(l+r)&#x2F;2和midmid&#x3D;(mid+r)&#x2F;2这两个分界点，前者大则令r&#x3D;midmid，否则令l&#x3D;mid。 例题：cf939E 12345678910111213141516171819202122232425262728293031323334353637383940#inclu">
+<meta property="og:description" content="https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;1373&#x2F;problem&#x2F;F 这题感觉出的很棒，感觉很简洁经典的题面，却从未见过（可能是做题太少）。 有环形的n个城市、n个资源站交替排布，每个城市需要资源ai，每个资源站最多能提供资源bi（只能给它两侧的城市ai、ai+1提供）。问能这n个城市的需求能否得到满足。1e6 这题一看很明显就知道能通过某种很妙的算法扫一遍就行，但比赛中想不">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-15T09:01:19.000Z">
-<meta property="article:modified_time" content="2020-03-15T09:06:07.590Z">
+<meta property="article:published_time" content="2020-06-27T15:18:18.000Z">
+<meta property="article:modified_time" content="2020-06-27T15:41:55.743Z">
 <meta property="article:author" content="Absoler">
-<meta property="article:tag" content="三分">
+<meta property="article:tag" content="思维">
+<meta property="article:tag" content="贪心">
 <meta name="twitter:card" content="summary">
 
 
@@ -120,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/15/三分法/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/06/27/环形资源分配/"/>
 
 
 
 
 
-  <title>三分法 | Absoler's blogs</title>
+  <title>环形资源分配 | Absoler's blogs</title>
   
 
 
@@ -253,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/15/%E4%B8%89%E5%88%86%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/27/%E7%8E%AF%E5%BD%A2%E8%B5%84%E6%BA%90%E5%88%86%E9%85%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Absoler">
@@ -270,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">三分法</h1>
+          <h1 class="post-title" itemprop="name headline">环形资源分配</h1>
         
 
         <div class="post-meta">
@@ -282,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-15T17:01:19+08:00">
-                2020-03-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-27T23:18:18+08:00">
+                2020-06-27
               </time>
             
 
@@ -305,8 +306,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index">
-                    <span itemprop="name">杂项</span>
+                  <a href="/categories/%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index">
+                    <span itemprop="name">思维</span>
                   </a>
                 </span>
 
@@ -342,9 +343,12 @@
       
 
       
-        <p>二分用于在单调序列上以logn的时间确定某个值，三分则用在凸函数上，即先增后减序列，可以找它的极值。我们需要mid=(l+r)/2和midmid=(mid+r)/2这两个分界点，前者大则令r=midmid，否则令l=mid。</p>
-<p>例题：cf939E</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">5e5</span>+<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> a[maxn];</span><br><span class="line"><span class="keyword">double</span> sum[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p,q;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> cal(k) (a[p]-(a[p]+sum[k])/(k+1))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;q;</span><br><span class="line">    <span class="keyword">while</span>(q--)&#123;</span><br><span class="line">        <span class="keyword">int</span> tp;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;tp;</span><br><span class="line">        <span class="keyword">if</span>(tp==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">double</span> x;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x;</span><br><span class="line">            a[++p]=x;</span><br><span class="line">            sum[p]=sum[p<span class="number">-1</span>]+a[p];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> l=<span class="number">1</span>,r=p;	<span class="comment">//三分</span></span><br><span class="line">            <span class="keyword">while</span>(l&lt;r<span class="number">-1</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">                <span class="keyword">int</span> midmid=(mid+r)/<span class="number">2</span>;</span><br><span class="line">                <span class="keyword">if</span>(cal(mid)&lt;cal(midmid))&#123;</span><br><span class="line">                    l=mid;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    r=midmid;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">double</span> ans=<span class="built_in">max</span>(cal(l),cal(r));</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%.6f\n"</span>,ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><a href="https://codeforces.com/contest/1373/problem/F" target="_blank" rel="noopener">https://codeforces.com/contest/1373/problem/F</a></p>
+<p>这题感觉出的很棒，感觉很简洁经典的题面，却从未见过（可能是做题太少）。</p>
+<p>有环形的n个城市、n个资源站交替排布，每个城市需要资源ai，每个资源站最多能提供资源bi（只能给它两侧的城市ai、ai+1提供）。问能这n个城市的需求能否得到满足。1e6</p>
+<p>这题一看很明显就知道能通过某种很妙的算法扫一遍就行，但比赛中想不到（；´д｀）ゞ。后来题解出来瞟了一眼就瞬间明白。</p>
+<p>首先我们从任意位置开始向右扫，在满足必须需求need的基础上把bi都给右侧；必要需求是什么呢？就是当前bi左侧的ai剩余未满足的部分，这部分是一定要由bi向左补足的，因为我们bi的给予从一开始是优先向右，等于牺牲了a1，如果这样的条件下ai都不能被满足，那么就不会有成功的情况了。同时我们需要维护最多能“回流”多少资源res，这是因为对于有的bi，可能在满足左侧必要需求，并把右侧ai+1，全部满足之后还有剩余，那么就可以考虑把它向左回流，减轻bi-1的负担，这样一路回流到a1。然后我们执行完bn后，这时已计算出a1（n+1）的need，然后比较，如果res&gt;=need的话就成功，这表明我们在满足a2-n都满足的情况下，能够向左返还给b1、使得b1能向左分配的资源，比给a1提供bn资源后剩下未满足的部分要多或等于，即所有a全部满足。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">1e6</span>+<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"></span><br><span class="line">ll a[maxn],b[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> t,n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;a[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;b[i];</span><br><span class="line">        a[n+<span class="number">1</span>]=a[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">bool</span> ans=<span class="literal">true</span>;</span><br><span class="line">        ll need=<span class="number">0</span>,res=<span class="number">0</span>,add=<span class="number">0</span>,extra=<span class="number">2e9</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(b[i]&lt;need)&#123;</span><br><span class="line">                ans=<span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            b[i]-=need;</span><br><span class="line">            extra=<span class="built_in">min</span>(extra,a[i]-need);</span><br><span class="line">            <span class="keyword">if</span>(b[i]&gt;a[i+<span class="number">1</span>])&#123;</span><br><span class="line">                ll left=b[i]-a[i+<span class="number">1</span>];</span><br><span class="line">                add=<span class="built_in">min</span>(extra,left);</span><br><span class="line">                extra-=add;</span><br><span class="line">                res+=add;</span><br><span class="line">                need=<span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                need=a[i+<span class="number">1</span>]-b[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans=ans&amp;(res&gt;=need);</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(ans?<span class="string">"YES"</span>:<span class="string">"NO"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -363,7 +367,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E4%B8%89%E5%88%86/" rel="tag"># 三分</a>
+            <a href="/tags/%E6%80%9D%E7%BB%B4/" rel="tag"># 思维</a>
+          
+            <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># 贪心</a>
           
         </div>
       
@@ -376,8 +382,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/14/lca%E5%80%8D%E5%A2%9E%E6%A8%A1%E6%9D%BF/" rel="next" title="lca倍增模板">
-                <i class="fa fa-chevron-left"></i> lca倍增模板
+              <a href="/2020/06/24/%E5%A4%8D%E6%9D%82%E7%82%B9%E7%9A%84dp/" rel="next" title="复杂点的dp">
+                <i class="fa fa-chevron-left"></i> 复杂点的dp
               </a>
             
           </div>
@@ -385,10 +391,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/16/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E6%A8%A1%E6%9D%BF/" rel="prev" title="欧拉回路模板">
-                欧拉回路模板 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
