@@ -251,6 +251,300 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/%E5%81%87%E6%97%A5%E8%B5%9Bboss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/12/%E5%81%87%E6%97%A5%E8%B5%9Bboss/" itemprop="url">假日赛boss</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T22:02:05+08:00">
+                2020-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">杂项</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://ac.nowcoder.com/acm/contest/4862/E" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/4862/E</a></p>
+<p>给n（&lt;=20）头牛，每头牛有自己的身高、重量、承重，要让它们叠罗汉并高度至少是h，并要求剩余的载重量最大（说明最稳），求这个最大剩余载重量。</p>
+<p>这题初看直接暴搜剪枝，，仔细一想才发现复杂度不对，是20！的。然后就没辙了，直到看了这篇<a href="https://www.cnblogs.com/ivanovcraft/p/9649230.html" target="_blank" rel="noopener">博客</a>，果然还是有藏着很隐蔽的关系约束的hh，核心思路是想到对于每种方案就是求si-sum{wi+1..wn}的最小值。然后对于所有方案再找最大。</p>
+<p>代码就直接按二进制遍历即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">d</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> h,w,s;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(d x,d y)&#123;</span><br><span class="line">        <span class="keyword">return</span> x.s+x.w&gt;y.s+y.w;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;ds[<span class="number">21</span>];</span><br><span class="line"><span class="keyword">int</span> n,h;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> chs[<span class="number">21</span>],p;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">1</span>;p=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> xh=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(x)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&amp;<span class="number">1</span>)&#123;</span><br><span class="line">            chs[++p]=i;</span><br><span class="line">            xh+=ds[i].h;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;x&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(xh&lt;h)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">int</span> xs=ds[chs[p]].s;</span><br><span class="line">    <span class="keyword">int</span> xw=ds[chs[p]].w;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=p<span class="number">-1</span>;i;i--)&#123;</span><br><span class="line">        xs=<span class="built_in">min</span>(xs,ds[chs[i]].s-xw);</span><br><span class="line">        xw+=ds[chs[i]].w;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (xs&gt;=<span class="number">0</span>?xs:<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;h;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;ds[i].h&gt;&gt;ds[i].w&gt;&gt;ds[i].s;</span><br><span class="line">    sort(ds+<span class="number">1</span>,ds+<span class="number">1</span>+n);</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=(<span class="number">1</span>&lt;&lt;n);i++)&#123;</span><br><span class="line">        ans=<span class="built_in">max</span>(ans,solve(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ans&gt;=<span class="number">0</span>)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Mark is too tall"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/10/%E5%8F%8C%E5%93%88%E5%B8%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Absoler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Absoler's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/10/%E5%8F%8C%E5%93%88%E5%B8%8C/" itemprop="url">双哈希</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-10T21:40:47+08:00">
+                2020-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index">
+                    <span itemprop="name">字符串</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>和自然溢出法不同的是，这种方法需要取模，并且是两套base mod。每次做哈希操作时，需要两套哈希值都一致，这就大大降低了冲突概率。但是据说常数比较大，并且写起来麻烦一些。</p>
+<p>CF1320D</p>
+<p>对于一个01串（2e5），给出两种操作：110&lt;-&gt;011，可以执行任意多次，q（2e5）个提问，问这个串中某两个子串能否通过这两种操作互相转化。</p>
+<p>分析可知，这种操作实际上就是把0左移或右移2位，也就是偶数次，那么如果这两个串中0出现的奇偶序列相同（比如第一个0都是奇数位上，第二个0都是偶数位上）那么就一定能互相转化成功，如果奇偶不同例如某两个0相邻，那是无法彼此转化的。所以问题就变成了，这两个子串中0出现的奇偶序列是否相同，这里是按照奇偶位置分别取1或2，不明白为啥0或1就会wa，，关于hash还有好多不懂的地方。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> base1=<span class="number">131</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> base2=<span class="number">13331</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod1=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod2=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e5</span>+<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> pos[maxn],p;</span><br><span class="line"><span class="keyword">int</span> hsh1[maxn][<span class="number">2</span>],hsh2[maxn][<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> pow1[maxn],pow2[maxn];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_hsh</span><span class="params">()</span></span>&#123;</span><br><span class="line">    pow1[<span class="number">0</span>]=pow2[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=p;i++)&#123;</span><br><span class="line">        hsh1[i][<span class="number">0</span>]=(<span class="number">1l</span>l*hsh1[i<span class="number">-1</span>][<span class="number">0</span>]*base1+pos[i]%<span class="number">2</span>+<span class="number">1</span>)%mod1;</span><br><span class="line">        hsh1[i][<span class="number">1</span>]=(<span class="number">1l</span>l*hsh1[i<span class="number">-1</span>][<span class="number">1</span>]*base1+!(pos[i]%<span class="number">2</span>)+<span class="number">1</span>)%mod1;</span><br><span class="line">        pow1[i]=<span class="number">1l</span>l*base1*pow1[i<span class="number">-1</span>]%mod1;</span><br><span class="line">        hsh2[i][<span class="number">0</span>]=(<span class="number">1l</span>l*hsh2[i<span class="number">-1</span>][<span class="number">0</span>]*base2+pos[i]%<span class="number">2</span>+<span class="number">1</span>)%mod2;</span><br><span class="line">        hsh2[i][<span class="number">1</span>]=(<span class="number">1l</span>l*hsh2[i<span class="number">-1</span>][<span class="number">1</span>]*base2+!(pos[i]%<span class="number">2</span>)+<span class="number">1</span>)%mod2;</span><br><span class="line">        pow2[i]=<span class="number">1l</span>l*base2*pow2[i<span class="number">-1</span>]%mod2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; pr;</span><br><span class="line"><span class="function">pr <span class="title">gethsh</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> st)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(st%<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> pr((hsh1[r][<span class="number">0</span>]<span class="number">-1l</span>l*pow1[r-l+<span class="number">1</span>]*hsh1[l<span class="number">-1</span>][<span class="number">0</span>]%mod1+mod1)%mod1,(hsh2[r][<span class="number">0</span>]<span class="number">-1l</span>l*hsh2[l<span class="number">-1</span>][<span class="number">0</span>]*pow2[r-l+<span class="number">1</span>]%mod2+mod2)%mod2);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pr((hsh1[r][<span class="number">1</span>]<span class="number">-1l</span>l*pow1[r-l+<span class="number">1</span>]*hsh1[l<span class="number">-1</span>][<span class="number">1</span>]%mod1+mod1)%mod1,(hsh2[r][<span class="number">1</span>]<span class="number">-1l</span>l*hsh2[l<span class="number">-1</span>][<span class="number">1</span>]*pow2[r-l+<span class="number">1</span>]%mod2+mod2)%mod2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">char</span> s[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;(s+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="keyword">if</span>(s[i]==<span class="string">'0'</span>)</span><br><span class="line">            pos[++p]=i;</span><br><span class="line">    init_hsh();</span><br><span class="line">    <span class="keyword">int</span> q;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;q;</span><br><span class="line">    <span class="keyword">int</span> x,y,l;</span><br><span class="line">    <span class="keyword">while</span>(q--)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;l;</span><br><span class="line">        <span class="keyword">int</span> xl=lower_bound(pos,pos+p+<span class="number">1</span>,x)-pos;</span><br><span class="line">        <span class="keyword">int</span> xr=upper_bound(pos,pos+p+<span class="number">1</span>,x+l<span class="number">-1</span>)-pos<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> yl=lower_bound(pos,pos+p+<span class="number">1</span>,y)-pos;</span><br><span class="line">        <span class="keyword">int</span> yr=upper_bound(pos,pos+p+<span class="number">1</span>,y+l<span class="number">-1</span>)-pos<span class="number">-1</span>;</span><br><span class="line">        pr px=gethsh(xl,xr,x);</span><br><span class="line">        pr py=gethsh(yl,yr,y);</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(px==py?<span class="string">"Yes"</span>:<span class="string">"No"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment">0100001001</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment">2 9 2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/07/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E6%9D%BF%EF%BC%88%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84%E3%80%81%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA%E3%80%81%E5%9B%9E%E6%96%87%E6%A0%91%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1508,302 +1802,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/%E6%95%B0%E4%BD%8Ddp%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/18/%E6%95%B0%E4%BD%8Ddp%E6%A8%A1%E6%9D%BF/" itemprop="url">数位dp模板</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-18T15:09:29+08:00">
-                2020-03-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dp/" itemprop="url" rel="index">
-                    <span itemprop="name">dp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本质是记忆化搜索，一般求解区间[l,r]内有多少数字满足要求。我们可以拆分问题为solve(r)-solve(l-1)或solve(r)-solve(l)+judge(l)。注意到整个区间（例如[0,999]）在很多地方重复使用，所以对它记录。</p>
-<p>例题：cf628D</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MOD=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e3</span>+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm=<span class="number">2e3</span>+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">char</span> a[maxn],b[maxn];</span><br><span class="line"><span class="keyword">int</span> num[maxn];</span><br><span class="line"><span class="keyword">int</span> m,d;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line">ll dp[maxn][maxm];</span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">judge</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s,<span class="keyword">int</span> lena)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mod=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=lena;i++)&#123;</span><br><span class="line">        mod=(mod*<span class="number">10</span>+s[i])%m;</span><br><span class="line">        <span class="keyword">if</span>((i&amp;<span class="number">1</span>)==<span class="number">0</span>&amp;&amp;s[i]!=d)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>((i&amp;<span class="number">1</span>)&amp;&amp;s[i]==d)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (mod==<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> val[maxn];</span><br><span class="line"><span class="function">ll <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> pos,<span class="keyword">int</span> mod,<span class="keyword">bool</span> limit)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(pos==len+<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*if(mod==0)&#123;</span></span><br><span class="line"><span class="comment">            for(int i=1;i&lt;pos;i++)</span></span><br><span class="line"><span class="comment">                printf("%d",val[i]);</span></span><br><span class="line"><span class="comment">            puts("");</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        <span class="keyword">return</span> mod==<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!limit&amp;&amp;dp[pos][mod]!=<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> dp[pos][mod];</span><br><span class="line">    <span class="keyword">int</span> up=(limit?num[pos]:<span class="number">9</span>);</span><br><span class="line">    ll res=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=up;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> tmod=(mod*<span class="number">10</span>+i)%m;  <span class="comment">//模拟除法</span></span><br><span class="line">        <span class="keyword">if</span>((pos&amp;<span class="number">1</span>)&amp;&amp;(i==d))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(!(pos&amp;<span class="number">1</span>)&amp;&amp;(i!=d))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">//val[pos]=i;</span></span><br><span class="line">        res=(res+dfs(pos+<span class="number">1</span>,tmod,limit&amp;&amp;i==up))%MOD;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!limit)      <span class="comment">//当处于非limit的时候，ans才是整个区间的值</span></span><br><span class="line">        dp[pos][mod]=res;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">solve</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s,<span class="keyword">int</span> lena)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=lena;i++)</span><br><span class="line">        num[i]=s[i];</span><br><span class="line">    len=lena;</span><br><span class="line">    <span class="built_in">memset</span>(dp,<span class="number">-1</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">return</span> dfs(<span class="number">1</span>,<span class="number">0</span>,<span class="literal">true</span>)%MOD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;m&gt;&gt;d;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;(a+<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;(b+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> lena=<span class="built_in">strlen</span>(a+<span class="number">1</span>),lenb=<span class="built_in">strlen</span>(b+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=lena;i++)</span><br><span class="line">        a[i]-=<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=lenb;i++)</span><br><span class="line">        b[i]-=<span class="string">'0'</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;((solve(b,lenb)-solve(a,lena)+judge(a,lena))%MOD+MOD)%MOD&lt;&lt;<span class="built_in">endl</span>;      <span class="comment">//注意+MOD的操作，因为取MOD后可能会导致solve(a)&gt;solve(b)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/16/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Absoler">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Absoler's blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/16/%E6%AC%A7%E6%8B%89%E5%9B%9E%E8%B7%AF%E6%A8%A1%E6%9D%BF/" itemprop="url">欧拉回路模板</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-16T23:40:06+08:00">
-                2020-03-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">图论</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>​    直接介绍复杂度最低（O(n+m)）的Hierholzer方法。它能帮我们找到一条欧拉回路。</p>
-<p>​    欧拉回路指不重复经过所有边的一条回路，在有向图中，如果满足每个点入度=出度则存在欧拉回路。在无向图中，满足每个点度数为偶数则存在欧拉回路。它具有这样的性质，即从一个欧拉图中去除一个小欧拉图，剩下的仍是欧拉图，去除一个点及其所连边同样。由此产生了Hierholzer算法。</p>
-<p>​    算法整体是一个dfs过程，总是尝试用一个回路来代替点u，于是我们对从u发出的边，只要是未标记的，就沿着它去搜下一个点，同时利用“引用”技巧将搜过确定下来的边删除，这样复杂度就不会退化。如果需要记录路径，选择用栈，在搜索过一个点所有的边后压栈这个点，这个时候栈中已经存了从该点出去的所有环。如果需要求字典序最小的，对边预先排序即可。</p>
-<p>​    对于无向图，我们依然建双向有向图，然后每次检查时要两条边均未标记才继续。</p>
-<p>例题：cf547d</p>
-<p>给出2e5棋盘上若干点，要求将其染成黑白两色，使得每一行每一列黑白数量之差不超过1.</p>
-<p>我们作这样一个变换：将横纵坐标单独视为点，棋子所在的点视为x、y之间连边，意义就是通过对x染色，对y也产生了影响，我们可以将x点的边按出入分开染成不同的颜色，每条边都代表一个实际的（x，y）点，这样只要出边入边数量相差不超过1即可。实际上，我们可以对奇度顶点两两相连，虽然不是合法存在的点，最后输出结果不考虑即可，这样就凑成了欧拉图。</p>
-<p>事实上，这道题中我们是先确定了一个欧拉图，然后通过这个算法获取欧拉回路中每条无向边的方向。其实也是一种构造，只不过借助了这个算法。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e5</span>+<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to,next;</span><br><span class="line">&#125;es[maxn&lt;&lt;<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[maxn&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> cnt=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    es[++cnt]=(edge)&#123;v,head[u]&#125;;</span><br><span class="line">    head[u]=cnt;</span><br><span class="line">    es[++cnt]=(edge)&#123;u,head[v]&#125;;</span><br><span class="line">    head[v]=cnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> du[maxn&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> vis[maxn&lt;&lt;<span class="number">2</span>];   <span class="comment">//标记某条边是否被涂色</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> &amp;i=head[x];i;i=es[i].next)&#123;	<span class="comment">//引用是降低复杂度的关键</span></span><br><span class="line">        <span class="keyword">if</span>(vis[i]||vis[i^<span class="number">1</span>])			<span class="comment">//如果一对边均未染色</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        vis[i]=<span class="number">1</span>;</span><br><span class="line">        dfs(es[i].to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//记录回路就在这记录x即可</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y;</span><br><span class="line">        y+=<span class="number">2e5</span>;</span><br><span class="line">        add(x,y);</span><br><span class="line">        du[x]++,du[y]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> lst=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">4e5</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(du[i]&amp;<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(lst) add(lst,i),lst=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span> lst=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">4e5</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(du[i])&#123;</span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">        <span class="built_in">putchar</span>(vis[i&lt;&lt;<span class="number">1</span>]?<span class="string">'b'</span>:<span class="string">'r'</span>); <span class="comment">//由于两条边中的一条肯定被标记，只需认定偶数边是一种颜色即可</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1854,7 +1852,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1876,7 +1874,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
